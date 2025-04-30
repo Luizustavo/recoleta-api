@@ -1,13 +1,31 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Prisma, User } from 'generated/prisma';
 import { PrismaService } from 'src/database/prisma.service';
-
+import * as bcrypt from 'bcrypt';
 @Injectable()
 export class UserService {
   @Inject()
   private readonly prisma: PrismaService;
 
-  async user(
+  async updateUser(params: {
+    where: Prisma.UserWhereUniqueInput;
+    data: Prisma.UserUpdateInput;
+  }): Promise<User> {
+    const { where, data } = params;
+
+    const saltOrRounds = 10;
+    if (data.password && typeof data.password === 'string') {
+      const hashPasswarod = await bcrypt.hash(data.password, saltOrRounds);
+      data.password = hashPasswarod;
+    }
+
+    return this.prisma.user.update({
+      data,
+      where,
+    });
+  }
+
+  async getUserById(
     userWhereUniqueInput: Prisma.UserWhereUniqueInput,
   ): Promise<User | null> {
     return this.prisma.user.findUnique({
@@ -15,8 +33,8 @@ export class UserService {
     });
   }
 
-  async users(params: {
-    skip?: number;
+  async getAllUsers(params: {
+    skip?: number; //skip = (página - 1) * take (paginação)
     take?: number;
     cursor?: Prisma.UserWhereUniqueInput;
     where?: Prisma.UserWhereInput;
@@ -33,19 +51,13 @@ export class UserService {
   }
 
   async createUser(data: Prisma.UserCreateInput): Promise<User> {
+    const saltOrRounds = 10;
+    const hashPasswarod = await bcrypt.hash(data.password, saltOrRounds);
     return this.prisma.user.create({
-      data,
-    });
-  }
-
-  async updateUser(params: {
-    where: Prisma.UserWhereUniqueInput;
-    data: Prisma.UserUpdateInput;
-  }): Promise<User> {
-    const { where, data } = params;
-    return this.prisma.user.update({
-      data,
-      where,
+      data: {
+        ...data,
+        password: hashPasswarod,
+      },
     });
   }
 
