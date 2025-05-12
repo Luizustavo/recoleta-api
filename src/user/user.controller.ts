@@ -7,9 +7,12 @@ import {
   Patch,
   Query,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { Prisma, User as UserModel } from '@prisma/client';
+import { Prisma, User as UserModel } from '../../generated/prisma';
+import { AuthGuard } from 'src/auth/auth.guard';
+import { NotFoundException } from '@nestjs/common';
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -22,15 +25,17 @@ export class UserController {
   }
 
   @Get(':id')
+  @UseGuards(AuthGuard)
   async getUserById(@Param('id') id: string): Promise<UserModel | null> {
     const user = await this.userService.getUserById({ id });
     if (!user) {
-      throw new Error(`User with ID ${id} not found`);
+      throw new NotFoundException(`User with ID ${id} not found`);
     }
     return user;
   }
 
   @Get()
+  @UseGuards(AuthGuard)
   async getAllUsers(
     @Query('skip') skip: string,
     @Query('take') take: string,
@@ -48,6 +53,7 @@ export class UserController {
   }
 
   @Patch(':id')
+  @UseGuards(AuthGuard)
   async updateUser(
     @Param('id') id: string,
     @Body() userData: Prisma.UserUpdateInput,
@@ -57,16 +63,17 @@ export class UserController {
       data: userData,
     });
     if (!user) {
-      throw new Error(`User with ID ${id} not found`);
+      throw new NotFoundException(`User with ID ${id} not found`);
     }
     return user;
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard)
   async deleteUser(@Param('id') id: string): Promise<UserModel> {
     const user = await this.userService.deleteUser({ id });
     if (!user) {
-      throw new Error(`User with ID ${id} not found`);
+      throw new NotFoundException(`User with ID ${id} not found`);
     }
     return user;
   }

@@ -914,11 +914,11 @@ export namespace Prisma {
    */
 
   export type UserCountOutputType = {
-    Address: number
+    address: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Address?: boolean | UserCountOutputTypeCountAddressArgs
+    address?: boolean | UserCountOutputTypeCountAddressArgs
   }
 
   // Custom InputTypes
@@ -1116,7 +1116,7 @@ export namespace Prisma {
     password?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    Address?: boolean | User$AddressArgs<ExtArgs>
+    address?: boolean | User$addressArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1133,14 +1133,14 @@ export namespace Prisma {
 
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Address?: boolean | User$AddressArgs<ExtArgs>
+    address?: boolean | User$addressArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
-      Address: Prisma.$AddressPayload<ExtArgs>[]
+      address: Prisma.$AddressPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -1512,7 +1512,7 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    Address<T extends User$AddressArgs<ExtArgs> = {}>(args?: Subset<T, User$AddressArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    address<T extends User$addressArgs<ExtArgs> = {}>(args?: Subset<T, User$addressArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1918,9 +1918,9 @@ export namespace Prisma {
   }
 
   /**
-   * User.Address
+   * User.address
    */
-  export type User$AddressArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$addressArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Address
      */
@@ -1989,6 +1989,7 @@ export namespace Prisma {
     city: string | null
     state: string | null
     zipCode: string | null
+    country: string | null
     longitude: number | null
     latitude: number | null
     createdAt: Date | null
@@ -2002,6 +2003,7 @@ export namespace Prisma {
     city: string | null
     state: string | null
     zipCode: string | null
+    country: string | null
     longitude: number | null
     latitude: number | null
     createdAt: Date | null
@@ -2015,6 +2017,7 @@ export namespace Prisma {
     city: number
     state: number
     zipCode: number
+    country: number
     longitude: number
     latitude: number
     createdAt: number
@@ -2040,6 +2043,7 @@ export namespace Prisma {
     city?: true
     state?: true
     zipCode?: true
+    country?: true
     longitude?: true
     latitude?: true
     createdAt?: true
@@ -2053,6 +2057,7 @@ export namespace Prisma {
     city?: true
     state?: true
     zipCode?: true
+    country?: true
     longitude?: true
     latitude?: true
     createdAt?: true
@@ -2066,6 +2071,7 @@ export namespace Prisma {
     city?: true
     state?: true
     zipCode?: true
+    country?: true
     longitude?: true
     latitude?: true
     createdAt?: true
@@ -2166,6 +2172,7 @@ export namespace Prisma {
     city: string
     state: string
     zipCode: string
+    country: string | null
     longitude: number | null
     latitude: number | null
     createdAt: Date
@@ -2198,6 +2205,7 @@ export namespace Prisma {
     city?: boolean
     state?: boolean
     zipCode?: boolean
+    country?: boolean
     longitude?: boolean
     latitude?: boolean
     createdAt?: boolean
@@ -2214,13 +2222,14 @@ export namespace Prisma {
     city?: boolean
     state?: boolean
     zipCode?: boolean
+    country?: boolean
     longitude?: boolean
     latitude?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type AddressOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "street" | "city" | "state" | "zipCode" | "longitude" | "latitude" | "createdAt" | "updatedAt", ExtArgs["result"]["address"]>
+  export type AddressOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "street" | "city" | "state" | "zipCode" | "country" | "longitude" | "latitude" | "createdAt" | "updatedAt", ExtArgs["result"]["address"]>
   export type AddressInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -2237,6 +2246,7 @@ export namespace Prisma {
       city: string
       state: string
       zipCode: string
+      country: string | null
       longitude: number | null
       latitude: number | null
       createdAt: Date
@@ -2640,6 +2650,7 @@ export namespace Prisma {
     readonly city: FieldRef<"Address", 'String'>
     readonly state: FieldRef<"Address", 'String'>
     readonly zipCode: FieldRef<"Address", 'String'>
+    readonly country: FieldRef<"Address", 'String'>
     readonly longitude: FieldRef<"Address", 'Float'>
     readonly latitude: FieldRef<"Address", 'Float'>
     readonly createdAt: FieldRef<"Address", 'DateTime'>
@@ -3055,6 +3066,7 @@ export namespace Prisma {
     city: 'city',
     state: 'state',
     zipCode: 'zipCode',
+    country: 'country',
     longitude: 'longitude',
     latitude: 'latitude',
     createdAt: 'createdAt',
@@ -3154,7 +3166,7 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
-    Address?: AddressListRelationFilter
+    address?: AddressListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -3164,7 +3176,7 @@ export namespace Prisma {
     password?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    Address?: AddressOrderByRelationAggregateInput
+    address?: AddressOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -3177,7 +3189,7 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
-    Address?: AddressListRelationFilter
+    address?: AddressListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -3214,6 +3226,7 @@ export namespace Prisma {
     city?: StringFilter<"Address"> | string
     state?: StringFilter<"Address"> | string
     zipCode?: StringFilter<"Address"> | string
+    country?: StringNullableFilter<"Address"> | string | null
     longitude?: FloatNullableFilter<"Address"> | number | null
     latitude?: FloatNullableFilter<"Address"> | number | null
     createdAt?: DateTimeFilter<"Address"> | Date | string
@@ -3228,6 +3241,7 @@ export namespace Prisma {
     city?: SortOrder
     state?: SortOrder
     zipCode?: SortOrder
+    country?: SortOrder
     longitude?: SortOrder
     latitude?: SortOrder
     createdAt?: SortOrder
@@ -3245,6 +3259,7 @@ export namespace Prisma {
     city?: StringFilter<"Address"> | string
     state?: StringFilter<"Address"> | string
     zipCode?: StringFilter<"Address"> | string
+    country?: StringNullableFilter<"Address"> | string | null
     longitude?: FloatNullableFilter<"Address"> | number | null
     latitude?: FloatNullableFilter<"Address"> | number | null
     createdAt?: DateTimeFilter<"Address"> | Date | string
@@ -3259,6 +3274,7 @@ export namespace Prisma {
     city?: SortOrder
     state?: SortOrder
     zipCode?: SortOrder
+    country?: SortOrder
     longitude?: SortOrder
     latitude?: SortOrder
     createdAt?: SortOrder
@@ -3280,6 +3296,7 @@ export namespace Prisma {
     city?: StringWithAggregatesFilter<"Address"> | string
     state?: StringWithAggregatesFilter<"Address"> | string
     zipCode?: StringWithAggregatesFilter<"Address"> | string
+    country?: StringNullableWithAggregatesFilter<"Address"> | string | null
     longitude?: FloatNullableWithAggregatesFilter<"Address"> | number | null
     latitude?: FloatNullableWithAggregatesFilter<"Address"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"Address"> | Date | string
@@ -3293,7 +3310,7 @@ export namespace Prisma {
     password: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    Address?: AddressCreateNestedManyWithoutUserInput
+    address?: AddressCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -3303,7 +3320,7 @@ export namespace Prisma {
     password: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    Address?: AddressUncheckedCreateNestedManyWithoutUserInput
+    address?: AddressUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -3312,7 +3329,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Address?: AddressUpdateManyWithoutUserNestedInput
+    address?: AddressUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -3321,7 +3338,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Address?: AddressUncheckedUpdateManyWithoutUserNestedInput
+    address?: AddressUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -3355,6 +3372,7 @@ export namespace Prisma {
     city: string
     state: string
     zipCode: string
+    country?: string | null
     longitude?: number | null
     latitude?: number | null
     createdAt?: Date | string
@@ -3369,6 +3387,7 @@ export namespace Prisma {
     city: string
     state: string
     zipCode: string
+    country?: string | null
     longitude?: number | null
     latitude?: number | null
     createdAt?: Date | string
@@ -3380,6 +3399,7 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     state?: StringFieldUpdateOperationsInput | string
     zipCode?: StringFieldUpdateOperationsInput | string
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -3393,6 +3413,7 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     state?: StringFieldUpdateOperationsInput | string
     zipCode?: StringFieldUpdateOperationsInput | string
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -3406,6 +3427,7 @@ export namespace Prisma {
     city: string
     state: string
     zipCode: string
+    country?: string | null
     longitude?: number | null
     latitude?: number | null
     createdAt?: Date | string
@@ -3417,6 +3439,7 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     state?: StringFieldUpdateOperationsInput | string
     zipCode?: StringFieldUpdateOperationsInput | string
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -3429,6 +3452,7 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     state?: StringFieldUpdateOperationsInput | string
     zipCode?: StringFieldUpdateOperationsInput | string
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -3530,6 +3554,22 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+    isSet?: boolean
+  }
+
   export type FloatNullableFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel> | null
     in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
@@ -3554,6 +3594,7 @@ export namespace Prisma {
     city?: SortOrder
     state?: SortOrder
     zipCode?: SortOrder
+    country?: SortOrder
     longitude?: SortOrder
     latitude?: SortOrder
     createdAt?: SortOrder
@@ -3572,6 +3613,7 @@ export namespace Prisma {
     city?: SortOrder
     state?: SortOrder
     zipCode?: SortOrder
+    country?: SortOrder
     longitude?: SortOrder
     latitude?: SortOrder
     createdAt?: SortOrder
@@ -3585,6 +3627,7 @@ export namespace Prisma {
     city?: SortOrder
     state?: SortOrder
     zipCode?: SortOrder
+    country?: SortOrder
     longitude?: SortOrder
     latitude?: SortOrder
     createdAt?: SortOrder
@@ -3594,6 +3637,25 @@ export namespace Prisma {
   export type AddressSumOrderByAggregateInput = {
     longitude?: SortOrder
     latitude?: SortOrder
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+    isSet?: boolean
   }
 
   export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -3667,6 +3729,11 @@ export namespace Prisma {
     create?: XOR<UserCreateWithoutAddressInput, UserUncheckedCreateWithoutAddressInput>
     connectOrCreate?: UserCreateOrConnectWithoutAddressInput
     connect?: UserWhereUniqueInput
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+    unset?: boolean
   }
 
   export type NullableFloatFieldUpdateOperationsInput = {
@@ -3753,6 +3820,21 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+    isSet?: boolean
+  }
+
   export type NestedFloatNullableFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel> | null
     in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
@@ -3762,6 +3844,36 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+    isSet?: boolean
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
     isSet?: boolean
   }
 
@@ -3782,24 +3894,13 @@ export namespace Prisma {
     isSet?: boolean
   }
 
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-    isSet?: boolean
-  }
-
   export type AddressCreateWithoutUserInput = {
     id?: string
     street: string
     city: string
     state: string
     zipCode: string
+    country?: string | null
     longitude?: number | null
     latitude?: number | null
     createdAt?: Date | string
@@ -3812,6 +3913,7 @@ export namespace Prisma {
     city: string
     state: string
     zipCode: string
+    country?: string | null
     longitude?: number | null
     latitude?: number | null
     createdAt?: Date | string
@@ -3853,6 +3955,7 @@ export namespace Prisma {
     city?: StringFilter<"Address"> | string
     state?: StringFilter<"Address"> | string
     zipCode?: StringFilter<"Address"> | string
+    country?: StringNullableFilter<"Address"> | string | null
     longitude?: FloatNullableFilter<"Address"> | number | null
     latitude?: FloatNullableFilter<"Address"> | number | null
     createdAt?: DateTimeFilter<"Address"> | Date | string
@@ -3915,6 +4018,7 @@ export namespace Prisma {
     city: string
     state: string
     zipCode: string
+    country?: string | null
     longitude?: number | null
     latitude?: number | null
     createdAt?: Date | string
@@ -3926,6 +4030,7 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     state?: StringFieldUpdateOperationsInput | string
     zipCode?: StringFieldUpdateOperationsInput | string
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -3937,6 +4042,7 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     state?: StringFieldUpdateOperationsInput | string
     zipCode?: StringFieldUpdateOperationsInput | string
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -3948,6 +4054,7 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     state?: StringFieldUpdateOperationsInput | string
     zipCode?: StringFieldUpdateOperationsInput | string
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
