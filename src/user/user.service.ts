@@ -31,7 +31,7 @@ export class UserService {
     return this.prisma.user.findUnique({
       where: userWhereUniqueInput,
       include: {
-        address: true,
+        Address: true,
       },
     });
   }
