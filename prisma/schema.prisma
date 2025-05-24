@@ -21,7 +21,7 @@ model User {
   password  String
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  address   Address[]
+  Address   Address[]
 }
 
 model Address {
