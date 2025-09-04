@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
+import { JwtPayload } from './interfaces/jwt-payload.interface';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -19,7 +20,7 @@ export class AuthGuard implements CanActivate {
       throw new UnauthorizedException('Authorization token not found');
 
     try {
-      const payload = this.jwtService.verify<{ sub: string }>(authorization, {
+      const payload = this.jwtService.verify<JwtPayload>(authorization, {
         secret: process.env.SECRET_KEY,
       });
       request['sub'] = payload;
