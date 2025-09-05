@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
 import { CreateWasteDto } from './dto/create-waste.dto';
 import { UpdateWasteDto } from './dto/update-waste.dto';
+import { WasteCondition, WasteType, WasteUnit } from 'generated/prisma';
 
 @Injectable()
 export class WasteService {
@@ -86,15 +87,19 @@ export class WasteService {
       `${waste.dataDescarte}T${waste.horaDescarte}:00`,
     );
 
-    return await (this.prisma as any).waste.create({
+    return await this.prisma.waste.create({
       data: {
         userId,
         addressId: addressData.id,
-        wasteType: this.mapWasteTypeFromPortuguese(waste.tipoResiduo) as any,
+        wasteType: this.mapWasteTypeFromPortuguese(
+          waste.tipoResiduo,
+        ) as WasteType,
         weight: waste.peso,
         quantity: waste.quantidade,
-        unit: this.mapWasteUnitFromPortuguese(waste.unidade) as any,
-        condition: this.mapWasteConditionFromPortuguese(waste.condicao) as any,
+        unit: this.mapWasteUnitFromPortuguese(waste.unidade) as WasteUnit,
+        condition: this.mapWasteConditionFromPortuguese(
+          waste.condicao,
+        ) as WasteCondition,
         hasPackaging: waste.embalagem === 'sim',
         discardDate: discardDateTime,
         discardTime: waste.horaDescarte,
@@ -115,7 +120,7 @@ export class WasteService {
   }
 
   async getAllWastesByUser(userId: string): Promise<any[]> {
-    return await (this.prisma as any).waste.findMany({
+    return await this.prisma.waste.findMany({
       where: { userId },
       include: {
         user: {
@@ -131,8 +136,8 @@ export class WasteService {
     });
   }
 
-  async getWasteById(id: string, userId: string): Promise<any | null> {
-    return await (this.prisma as any).waste.findFirst({
+  async getWasteById(id: string, userId: string): Promise<any> {
+    return await this.prisma.waste.findFirst({
       where: { id, userId },
       include: {
         user: {
@@ -152,26 +157,30 @@ export class WasteService {
     userId: string,
     updateWasteDto: UpdateWasteDto,
   ): Promise<any> {
-    const updateData: any = {};
+    // Import the correct type for Waste from Prisma
+    // import { Waste } from 'generated/prisma'; (add this import at the top if not present)
+    const updateData: Partial<import('generated/prisma').Waste> = {};
 
     if (updateWasteDto.waste) {
-      const { waste } = updateWasteDto;
+      const waste = updateWasteDto.waste;
 
       if (waste.tipoResiduo) {
         updateData.wasteType = this.mapWasteTypeFromPortuguese(
           waste.tipoResiduo,
-        ) as any;
+        ) as WasteType;
       }
       if (waste.peso !== undefined) updateData.weight = waste.peso;
       if (waste.quantidade !== undefined)
         updateData.quantity = waste.quantidade;
       if (waste.unidade) {
-        updateData.unit = this.mapWasteUnitFromPortuguese(waste.unidade) as any;
+        updateData.unit = this.mapWasteUnitFromPortuguese(
+          waste.unidade,
+        ) as WasteUnit;
       }
       if (waste.condicao) {
         updateData.condition = this.mapWasteConditionFromPortuguese(
           waste.condicao,
-        ) as any;
+        ) as WasteCondition;
       }
       if (waste.embalagem) {
         updateData.hasPackaging = waste.embalagem === 'sim';
@@ -190,7 +199,7 @@ export class WasteService {
       }
     }
 
-    return await (this.prisma as any).waste.update({
+    return await this.prisma.waste.update({
       where: { id },
       data: updateData,
       include: {
@@ -206,8 +215,8 @@ export class WasteService {
     });
   }
 
-  async deleteWaste(id: string, userId: string): Promise<any> {
-    return await (this.prisma as any).waste.delete({
+  async deleteWaste(id: string): Promise<any> {
+    return await this.prisma.waste.delete({
       where: { id },
       include: {
         user: {
