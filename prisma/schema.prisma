@@ -22,20 +22,73 @@ model User {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   Address   Address[]
+  Waste     Waste[]
 }
 
 model Address {
-  id        String   @id @default(uuid()) @map("_id")
-  userId    String
-  street    String
-  city      String
-  state     String
-  zipCode   String
-  country   String?
-  longitude Float?
-  latitude  Float?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String   @id @default(uuid()) @map("_id")
+  userId      String
+  street      String
+  city        String
+  state       String
+  zipCode     String
+  country     String?
+  longitude   Float?
+  latitude    Float?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  // Novos campos para endereço de descarte
+  number      String?
+  complement  String?
+  neighborhood String?
+  reference   String?
+  isMain      Boolean  @default(false)
 
-  user User @relation(fields: [userId], references: [id])
+  user  User    @relation(fields: [userId], references: [id])
+  Waste Waste[]
+}
+
+model Waste {
+  id                    String     @id @default(uuid()) @map("_id")
+  userId                String
+  addressId             String
+  wasteType             WasteType
+  weight                Float
+  quantity              Int
+  unit                  WasteUnit
+  condition             WasteCondition
+  hasPackaging          Boolean
+  discardDate           DateTime
+  discardTime           String
+  additionalDescription String?
+  images                String[]
+  createdAt             DateTime   @default(now())
+  updatedAt             DateTime   @updatedAt
+
+  user    User    @relation(fields: [userId], references: [id])
+  address Address @relation(fields: [addressId], references: [id])
+}
+
+enum WasteType {
+  ELECTRONICS
+  ORGANIC
+  PLASTIC
+  PAPER
+  GLASS
+  METAL
+  WOOD
+  TEXTILE
+  MISCELLANEOUS
+}
+
+enum WasteUnit {
+  KG
+  LITERS
+  UNITS
+}
+
+enum WasteCondition {
+  NEW
+  USED
+  DAMAGED
 }

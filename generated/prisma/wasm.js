@@ -133,6 +133,29 @@ exports.Prisma.AddressScalarFieldEnum = {
   longitude: 'longitude',
   latitude: 'latitude',
   createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  number: 'number',
+  complement: 'complement',
+  neighborhood: 'neighborhood',
+  reference: 'reference',
+  isMain: 'isMain'
+};
+
+exports.Prisma.WasteScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  addressId: 'addressId',
+  wasteType: 'wasteType',
+  weight: 'weight',
+  quantity: 'quantity',
+  unit: 'unit',
+  condition: 'condition',
+  hasPackaging: 'hasPackaging',
+  discardDate: 'discardDate',
+  discardTime: 'discardTime',
+  additionalDescription: 'additionalDescription',
+  images: 'images',
+  createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 
@@ -145,11 +168,34 @@ exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
+exports.WasteType = exports.$Enums.WasteType = {
+  ELECTRONICS: 'ELECTRONICS',
+  ORGANIC: 'ORGANIC',
+  PLASTIC: 'PLASTIC',
+  PAPER: 'PAPER',
+  GLASS: 'GLASS',
+  METAL: 'METAL',
+  WOOD: 'WOOD',
+  TEXTILE: 'TEXTILE',
+  MISCELLANEOUS: 'MISCELLANEOUS'
+};
 
+exports.WasteUnit = exports.$Enums.WasteUnit = {
+  KG: 'KG',
+  LITERS: 'LITERS',
+  UNITS: 'UNITS'
+};
+
+exports.WasteCondition = exports.$Enums.WasteCondition = {
+  NEW: 'NEW',
+  USED: 'USED',
+  DAMAGED: 'DAMAGED'
+};
 
 exports.Prisma.ModelName = {
   User: 'User',
-  Address: 'Address'
+  Address: 'Address',
+  Waste: 'Waste'
 };
 
 /**

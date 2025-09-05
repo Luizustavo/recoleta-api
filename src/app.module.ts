@@ -3,6 +3,7 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { DatabaseModule } from './database/database.module';
 import { AddressModule } from './address/address.module';
+import { WasteModule } from './waste/waste.module';
 import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
@@ -17,6 +18,7 @@ import { MongooseModule } from '@nestjs/mongoose';
     UserModule,
     DatabaseModule,
     AddressModule,
+    WasteModule,
   ],
 })
 export class AppModule {}

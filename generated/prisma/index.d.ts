@@ -23,6 +23,61 @@ export type User = $Result.DefaultSelection<Prisma.$UserPayload>
  * 
  */
 export type Address = $Result.DefaultSelection<Prisma.$AddressPayload>
+/**
+ * Model Waste
+ * 
+ */
+export type Waste = $Result.DefaultSelection<Prisma.$WastePayload>
+
+/**
+ * Enums
+ */
+export namespace $Enums {
+  export const WasteType: {
+  ELECTRONICS: 'ELECTRONICS',
+  ORGANIC: 'ORGANIC',
+  PLASTIC: 'PLASTIC',
+  PAPER: 'PAPER',
+  GLASS: 'GLASS',
+  METAL: 'METAL',
+  WOOD: 'WOOD',
+  TEXTILE: 'TEXTILE',
+  MISCELLANEOUS: 'MISCELLANEOUS'
+};
+
+export type WasteType = (typeof WasteType)[keyof typeof WasteType]
+
+
+export const WasteUnit: {
+  KG: 'KG',
+  LITERS: 'LITERS',
+  UNITS: 'UNITS'
+};
+
+export type WasteUnit = (typeof WasteUnit)[keyof typeof WasteUnit]
+
+
+export const WasteCondition: {
+  NEW: 'NEW',
+  USED: 'USED',
+  DAMAGED: 'DAMAGED'
+};
+
+export type WasteCondition = (typeof WasteCondition)[keyof typeof WasteCondition]
+
+}
+
+export type WasteType = $Enums.WasteType
+
+export const WasteType: typeof $Enums.WasteType
+
+export type WasteUnit = $Enums.WasteUnit
+
+export const WasteUnit: typeof $Enums.WasteUnit
+
+export type WasteCondition = $Enums.WasteCondition
+
+export const WasteCondition: typeof $Enums.WasteCondition
 
 /**
  * ##  Prisma Client ʲˢ
@@ -135,6 +190,16 @@ export class PrismaClient<
     * ```
     */
   get address(): Prisma.AddressDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.waste`: Exposes CRUD operations for the **Waste** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Wastes
+    * const wastes = await prisma.waste.findMany()
+    * ```
+    */
+  get waste(): Prisma.WasteDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -576,7 +641,8 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
-    Address: 'Address'
+    Address: 'Address',
+    Waste: 'Waste'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -595,7 +661,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "address"
+      modelProps: "user" | "address" | "waste"
       txIsolationLevel: never
     }
     model: {
@@ -747,6 +813,80 @@ export namespace Prisma {
           }
         }
       }
+      Waste: {
+        payload: Prisma.$WastePayload<ExtArgs>
+        fields: Prisma.WasteFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.WasteFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WastePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.WasteFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WastePayload>
+          }
+          findFirst: {
+            args: Prisma.WasteFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WastePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.WasteFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WastePayload>
+          }
+          findMany: {
+            args: Prisma.WasteFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WastePayload>[]
+          }
+          create: {
+            args: Prisma.WasteCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WastePayload>
+          }
+          createMany: {
+            args: Prisma.WasteCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.WasteDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WastePayload>
+          }
+          update: {
+            args: Prisma.WasteUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WastePayload>
+          }
+          deleteMany: {
+            args: Prisma.WasteDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.WasteUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.WasteUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WastePayload>
+          }
+          aggregate: {
+            args: Prisma.WasteAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateWaste>
+          }
+          groupBy: {
+            args: Prisma.WasteGroupByArgs<ExtArgs>
+            result: $Utils.Optional<WasteGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.WasteFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.WasteAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.WasteCountArgs<ExtArgs>
+            result: $Utils.Optional<WasteCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -820,6 +960,7 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     user?: UserOmit
     address?: AddressOmit
+    waste?: WasteOmit
   }
 
   /* Types for Logging */
@@ -915,10 +1056,12 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     Address: number
+    Waste: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Address?: boolean | UserCountOutputTypeCountAddressArgs
+    Waste?: boolean | UserCountOutputTypeCountWasteArgs
   }
 
   // Custom InputTypes
@@ -937,6 +1080,44 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountAddressArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AddressWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountWasteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WasteWhereInput
+  }
+
+
+  /**
+   * Count Type AddressCountOutputType
+   */
+
+  export type AddressCountOutputType = {
+    Waste: number
+  }
+
+  export type AddressCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Waste?: boolean | AddressCountOutputTypeCountWasteArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * AddressCountOutputType without action
+   */
+  export type AddressCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AddressCountOutputType
+     */
+    select?: AddressCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * AddressCountOutputType without action
+   */
+  export type AddressCountOutputTypeCountWasteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WasteWhereInput
   }
 
 
@@ -1117,6 +1298,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     Address?: boolean | User$AddressArgs<ExtArgs>
+    Waste?: boolean | User$WasteArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1134,6 +1316,7 @@ export namespace Prisma {
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Address?: boolean | User$AddressArgs<ExtArgs>
+    Waste?: boolean | User$WasteArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -1141,6 +1324,7 @@ export namespace Prisma {
     name: "User"
     objects: {
       Address: Prisma.$AddressPayload<ExtArgs>[]
+      Waste: Prisma.$WastePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -1513,6 +1697,7 @@ export namespace Prisma {
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     Address<T extends User$AddressArgs<ExtArgs> = {}>(args?: Subset<T, User$AddressArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    Waste<T extends User$WasteArgs<ExtArgs> = {}>(args?: Subset<T, User$WasteArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WastePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1942,6 +2127,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.Waste
+   */
+  export type User$WasteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Waste
+     */
+    select?: WasteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Waste
+     */
+    omit?: WasteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WasteInclude<ExtArgs> | null
+    where?: WasteWhereInput
+    orderBy?: WasteOrderByWithRelationInput | WasteOrderByWithRelationInput[]
+    cursor?: WasteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: WasteScalarFieldEnum | WasteScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1994,6 +2203,11 @@ export namespace Prisma {
     latitude: number | null
     createdAt: Date | null
     updatedAt: Date | null
+    number: string | null
+    complement: string | null
+    neighborhood: string | null
+    reference: string | null
+    isMain: boolean | null
   }
 
   export type AddressMaxAggregateOutputType = {
@@ -2008,6 +2222,11 @@ export namespace Prisma {
     latitude: number | null
     createdAt: Date | null
     updatedAt: Date | null
+    number: string | null
+    complement: string | null
+    neighborhood: string | null
+    reference: string | null
+    isMain: boolean | null
   }
 
   export type AddressCountAggregateOutputType = {
@@ -2022,6 +2241,11 @@ export namespace Prisma {
     latitude: number
     createdAt: number
     updatedAt: number
+    number: number
+    complement: number
+    neighborhood: number
+    reference: number
+    isMain: number
     _all: number
   }
 
@@ -2048,6 +2272,11 @@ export namespace Prisma {
     latitude?: true
     createdAt?: true
     updatedAt?: true
+    number?: true
+    complement?: true
+    neighborhood?: true
+    reference?: true
+    isMain?: true
   }
 
   export type AddressMaxAggregateInputType = {
@@ -2062,6 +2291,11 @@ export namespace Prisma {
     latitude?: true
     createdAt?: true
     updatedAt?: true
+    number?: true
+    complement?: true
+    neighborhood?: true
+    reference?: true
+    isMain?: true
   }
 
   export type AddressCountAggregateInputType = {
@@ -2076,6 +2310,11 @@ export namespace Prisma {
     latitude?: true
     createdAt?: true
     updatedAt?: true
+    number?: true
+    complement?: true
+    neighborhood?: true
+    reference?: true
+    isMain?: true
     _all?: true
   }
 
@@ -2177,6 +2416,11 @@ export namespace Prisma {
     latitude: number | null
     createdAt: Date
     updatedAt: Date
+    number: string | null
+    complement: string | null
+    neighborhood: string | null
+    reference: string | null
+    isMain: boolean
     _count: AddressCountAggregateOutputType | null
     _avg: AddressAvgAggregateOutputType | null
     _sum: AddressSumAggregateOutputType | null
@@ -2210,7 +2454,14 @@ export namespace Prisma {
     latitude?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    number?: boolean
+    complement?: boolean
+    neighborhood?: boolean
+    reference?: boolean
+    isMain?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
+    Waste?: boolean | Address$WasteArgs<ExtArgs>
+    _count?: boolean | AddressCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["address"]>
 
 
@@ -2227,17 +2478,25 @@ export namespace Prisma {
     latitude?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    number?: boolean
+    complement?: boolean
+    neighborhood?: boolean
+    reference?: boolean
+    isMain?: boolean
   }
 
-  export type AddressOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "street" | "city" | "state" | "zipCode" | "country" | "longitude" | "latitude" | "createdAt" | "updatedAt", ExtArgs["result"]["address"]>
+  export type AddressOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "street" | "city" | "state" | "zipCode" | "country" | "longitude" | "latitude" | "createdAt" | "updatedAt" | "number" | "complement" | "neighborhood" | "reference" | "isMain", ExtArgs["result"]["address"]>
   export type AddressInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
+    Waste?: boolean | Address$WasteArgs<ExtArgs>
+    _count?: boolean | AddressCountOutputTypeDefaultArgs<ExtArgs>
   }
 
   export type $AddressPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Address"
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
+      Waste: Prisma.$WastePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2251,6 +2510,11 @@ export namespace Prisma {
       latitude: number | null
       createdAt: Date
       updatedAt: Date
+      number: string | null
+      complement: string | null
+      neighborhood: string | null
+      reference: string | null
+      isMain: boolean
     }, ExtArgs["result"]["address"]>
     composites: {}
   }
@@ -2615,6 +2879,7 @@ export namespace Prisma {
   export interface Prisma__AddressClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    Waste<T extends Address$WasteArgs<ExtArgs> = {}>(args?: Subset<T, Address$WasteArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WastePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2655,6 +2920,11 @@ export namespace Prisma {
     readonly latitude: FieldRef<"Address", 'Float'>
     readonly createdAt: FieldRef<"Address", 'DateTime'>
     readonly updatedAt: FieldRef<"Address", 'DateTime'>
+    readonly number: FieldRef<"Address", 'String'>
+    readonly complement: FieldRef<"Address", 'String'>
+    readonly neighborhood: FieldRef<"Address", 'String'>
+    readonly reference: FieldRef<"Address", 'String'>
+    readonly isMain: FieldRef<"Address", 'Boolean'>
   }
     
 
@@ -3025,6 +3295,30 @@ export namespace Prisma {
   }
 
   /**
+   * Address.Waste
+   */
+  export type Address$WasteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Waste
+     */
+    select?: WasteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Waste
+     */
+    omit?: WasteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WasteInclude<ExtArgs> | null
+    where?: WasteWhereInput
+    orderBy?: WasteOrderByWithRelationInput | WasteOrderByWithRelationInput[]
+    cursor?: WasteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: WasteScalarFieldEnum | WasteScalarFieldEnum[]
+  }
+
+  /**
    * Address without action
    */
   export type AddressDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3040,6 +3334,1133 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: AddressInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Waste
+   */
+
+  export type AggregateWaste = {
+    _count: WasteCountAggregateOutputType | null
+    _avg: WasteAvgAggregateOutputType | null
+    _sum: WasteSumAggregateOutputType | null
+    _min: WasteMinAggregateOutputType | null
+    _max: WasteMaxAggregateOutputType | null
+  }
+
+  export type WasteAvgAggregateOutputType = {
+    weight: number | null
+    quantity: number | null
+  }
+
+  export type WasteSumAggregateOutputType = {
+    weight: number | null
+    quantity: number | null
+  }
+
+  export type WasteMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    addressId: string | null
+    wasteType: $Enums.WasteType | null
+    weight: number | null
+    quantity: number | null
+    unit: $Enums.WasteUnit | null
+    condition: $Enums.WasteCondition | null
+    hasPackaging: boolean | null
+    discardDate: Date | null
+    discardTime: string | null
+    additionalDescription: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type WasteMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    addressId: string | null
+    wasteType: $Enums.WasteType | null
+    weight: number | null
+    quantity: number | null
+    unit: $Enums.WasteUnit | null
+    condition: $Enums.WasteCondition | null
+    hasPackaging: boolean | null
+    discardDate: Date | null
+    discardTime: string | null
+    additionalDescription: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type WasteCountAggregateOutputType = {
+    id: number
+    userId: number
+    addressId: number
+    wasteType: number
+    weight: number
+    quantity: number
+    unit: number
+    condition: number
+    hasPackaging: number
+    discardDate: number
+    discardTime: number
+    additionalDescription: number
+    images: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type WasteAvgAggregateInputType = {
+    weight?: true
+    quantity?: true
+  }
+
+  export type WasteSumAggregateInputType = {
+    weight?: true
+    quantity?: true
+  }
+
+  export type WasteMinAggregateInputType = {
+    id?: true
+    userId?: true
+    addressId?: true
+    wasteType?: true
+    weight?: true
+    quantity?: true
+    unit?: true
+    condition?: true
+    hasPackaging?: true
+    discardDate?: true
+    discardTime?: true
+    additionalDescription?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type WasteMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    addressId?: true
+    wasteType?: true
+    weight?: true
+    quantity?: true
+    unit?: true
+    condition?: true
+    hasPackaging?: true
+    discardDate?: true
+    discardTime?: true
+    additionalDescription?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type WasteCountAggregateInputType = {
+    id?: true
+    userId?: true
+    addressId?: true
+    wasteType?: true
+    weight?: true
+    quantity?: true
+    unit?: true
+    condition?: true
+    hasPackaging?: true
+    discardDate?: true
+    discardTime?: true
+    additionalDescription?: true
+    images?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type WasteAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Waste to aggregate.
+     */
+    where?: WasteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Wastes to fetch.
+     */
+    orderBy?: WasteOrderByWithRelationInput | WasteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: WasteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Wastes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Wastes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Wastes
+    **/
+    _count?: true | WasteCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: WasteAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: WasteSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: WasteMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: WasteMaxAggregateInputType
+  }
+
+  export type GetWasteAggregateType<T extends WasteAggregateArgs> = {
+        [P in keyof T & keyof AggregateWaste]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateWaste[P]>
+      : GetScalarType<T[P], AggregateWaste[P]>
+  }
+
+
+
+
+  export type WasteGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WasteWhereInput
+    orderBy?: WasteOrderByWithAggregationInput | WasteOrderByWithAggregationInput[]
+    by: WasteScalarFieldEnum[] | WasteScalarFieldEnum
+    having?: WasteScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: WasteCountAggregateInputType | true
+    _avg?: WasteAvgAggregateInputType
+    _sum?: WasteSumAggregateInputType
+    _min?: WasteMinAggregateInputType
+    _max?: WasteMaxAggregateInputType
+  }
+
+  export type WasteGroupByOutputType = {
+    id: string
+    userId: string
+    addressId: string
+    wasteType: $Enums.WasteType
+    weight: number
+    quantity: number
+    unit: $Enums.WasteUnit
+    condition: $Enums.WasteCondition
+    hasPackaging: boolean
+    discardDate: Date
+    discardTime: string
+    additionalDescription: string | null
+    images: string[]
+    createdAt: Date
+    updatedAt: Date
+    _count: WasteCountAggregateOutputType | null
+    _avg: WasteAvgAggregateOutputType | null
+    _sum: WasteSumAggregateOutputType | null
+    _min: WasteMinAggregateOutputType | null
+    _max: WasteMaxAggregateOutputType | null
+  }
+
+  type GetWasteGroupByPayload<T extends WasteGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<WasteGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof WasteGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], WasteGroupByOutputType[P]>
+            : GetScalarType<T[P], WasteGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type WasteSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    addressId?: boolean
+    wasteType?: boolean
+    weight?: boolean
+    quantity?: boolean
+    unit?: boolean
+    condition?: boolean
+    hasPackaging?: boolean
+    discardDate?: boolean
+    discardTime?: boolean
+    additionalDescription?: boolean
+    images?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    address?: boolean | AddressDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["waste"]>
+
+
+
+  export type WasteSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    addressId?: boolean
+    wasteType?: boolean
+    weight?: boolean
+    quantity?: boolean
+    unit?: boolean
+    condition?: boolean
+    hasPackaging?: boolean
+    discardDate?: boolean
+    discardTime?: boolean
+    additionalDescription?: boolean
+    images?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type WasteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "addressId" | "wasteType" | "weight" | "quantity" | "unit" | "condition" | "hasPackaging" | "discardDate" | "discardTime" | "additionalDescription" | "images" | "createdAt" | "updatedAt", ExtArgs["result"]["waste"]>
+  export type WasteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    address?: boolean | AddressDefaultArgs<ExtArgs>
+  }
+
+  export type $WastePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Waste"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      address: Prisma.$AddressPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      addressId: string
+      wasteType: $Enums.WasteType
+      weight: number
+      quantity: number
+      unit: $Enums.WasteUnit
+      condition: $Enums.WasteCondition
+      hasPackaging: boolean
+      discardDate: Date
+      discardTime: string
+      additionalDescription: string | null
+      images: string[]
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["waste"]>
+    composites: {}
+  }
+
+  type WasteGetPayload<S extends boolean | null | undefined | WasteDefaultArgs> = $Result.GetResult<Prisma.$WastePayload, S>
+
+  type WasteCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<WasteFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: WasteCountAggregateInputType | true
+    }
+
+  export interface WasteDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Waste'], meta: { name: 'Waste' } }
+    /**
+     * Find zero or one Waste that matches the filter.
+     * @param {WasteFindUniqueArgs} args - Arguments to find a Waste
+     * @example
+     * // Get one Waste
+     * const waste = await prisma.waste.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends WasteFindUniqueArgs>(args: SelectSubset<T, WasteFindUniqueArgs<ExtArgs>>): Prisma__WasteClient<$Result.GetResult<Prisma.$WastePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Waste that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {WasteFindUniqueOrThrowArgs} args - Arguments to find a Waste
+     * @example
+     * // Get one Waste
+     * const waste = await prisma.waste.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends WasteFindUniqueOrThrowArgs>(args: SelectSubset<T, WasteFindUniqueOrThrowArgs<ExtArgs>>): Prisma__WasteClient<$Result.GetResult<Prisma.$WastePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Waste that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WasteFindFirstArgs} args - Arguments to find a Waste
+     * @example
+     * // Get one Waste
+     * const waste = await prisma.waste.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends WasteFindFirstArgs>(args?: SelectSubset<T, WasteFindFirstArgs<ExtArgs>>): Prisma__WasteClient<$Result.GetResult<Prisma.$WastePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Waste that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WasteFindFirstOrThrowArgs} args - Arguments to find a Waste
+     * @example
+     * // Get one Waste
+     * const waste = await prisma.waste.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends WasteFindFirstOrThrowArgs>(args?: SelectSubset<T, WasteFindFirstOrThrowArgs<ExtArgs>>): Prisma__WasteClient<$Result.GetResult<Prisma.$WastePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Wastes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WasteFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Wastes
+     * const wastes = await prisma.waste.findMany()
+     * 
+     * // Get first 10 Wastes
+     * const wastes = await prisma.waste.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const wasteWithIdOnly = await prisma.waste.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends WasteFindManyArgs>(args?: SelectSubset<T, WasteFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WastePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Waste.
+     * @param {WasteCreateArgs} args - Arguments to create a Waste.
+     * @example
+     * // Create one Waste
+     * const Waste = await prisma.waste.create({
+     *   data: {
+     *     // ... data to create a Waste
+     *   }
+     * })
+     * 
+     */
+    create<T extends WasteCreateArgs>(args: SelectSubset<T, WasteCreateArgs<ExtArgs>>): Prisma__WasteClient<$Result.GetResult<Prisma.$WastePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Wastes.
+     * @param {WasteCreateManyArgs} args - Arguments to create many Wastes.
+     * @example
+     * // Create many Wastes
+     * const waste = await prisma.waste.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends WasteCreateManyArgs>(args?: SelectSubset<T, WasteCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Waste.
+     * @param {WasteDeleteArgs} args - Arguments to delete one Waste.
+     * @example
+     * // Delete one Waste
+     * const Waste = await prisma.waste.delete({
+     *   where: {
+     *     // ... filter to delete one Waste
+     *   }
+     * })
+     * 
+     */
+    delete<T extends WasteDeleteArgs>(args: SelectSubset<T, WasteDeleteArgs<ExtArgs>>): Prisma__WasteClient<$Result.GetResult<Prisma.$WastePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Waste.
+     * @param {WasteUpdateArgs} args - Arguments to update one Waste.
+     * @example
+     * // Update one Waste
+     * const waste = await prisma.waste.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends WasteUpdateArgs>(args: SelectSubset<T, WasteUpdateArgs<ExtArgs>>): Prisma__WasteClient<$Result.GetResult<Prisma.$WastePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Wastes.
+     * @param {WasteDeleteManyArgs} args - Arguments to filter Wastes to delete.
+     * @example
+     * // Delete a few Wastes
+     * const { count } = await prisma.waste.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends WasteDeleteManyArgs>(args?: SelectSubset<T, WasteDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Wastes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WasteUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Wastes
+     * const waste = await prisma.waste.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends WasteUpdateManyArgs>(args: SelectSubset<T, WasteUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Waste.
+     * @param {WasteUpsertArgs} args - Arguments to update or create a Waste.
+     * @example
+     * // Update or create a Waste
+     * const waste = await prisma.waste.upsert({
+     *   create: {
+     *     // ... data to create a Waste
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Waste we want to update
+     *   }
+     * })
+     */
+    upsert<T extends WasteUpsertArgs>(args: SelectSubset<T, WasteUpsertArgs<ExtArgs>>): Prisma__WasteClient<$Result.GetResult<Prisma.$WastePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Wastes that matches the filter.
+     * @param {WasteFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const waste = await prisma.waste.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: WasteFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Waste.
+     * @param {WasteAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const waste = await prisma.waste.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: WasteAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Wastes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WasteCountArgs} args - Arguments to filter Wastes to count.
+     * @example
+     * // Count the number of Wastes
+     * const count = await prisma.waste.count({
+     *   where: {
+     *     // ... the filter for the Wastes we want to count
+     *   }
+     * })
+    **/
+    count<T extends WasteCountArgs>(
+      args?: Subset<T, WasteCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], WasteCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Waste.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WasteAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends WasteAggregateArgs>(args: Subset<T, WasteAggregateArgs>): Prisma.PrismaPromise<GetWasteAggregateType<T>>
+
+    /**
+     * Group by Waste.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WasteGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends WasteGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: WasteGroupByArgs['orderBy'] }
+        : { orderBy?: WasteGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, WasteGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetWasteGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Waste model
+   */
+  readonly fields: WasteFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Waste.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__WasteClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    address<T extends AddressDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AddressDefaultArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Waste model
+   */
+  interface WasteFieldRefs {
+    readonly id: FieldRef<"Waste", 'String'>
+    readonly userId: FieldRef<"Waste", 'String'>
+    readonly addressId: FieldRef<"Waste", 'String'>
+    readonly wasteType: FieldRef<"Waste", 'WasteType'>
+    readonly weight: FieldRef<"Waste", 'Float'>
+    readonly quantity: FieldRef<"Waste", 'Int'>
+    readonly unit: FieldRef<"Waste", 'WasteUnit'>
+    readonly condition: FieldRef<"Waste", 'WasteCondition'>
+    readonly hasPackaging: FieldRef<"Waste", 'Boolean'>
+    readonly discardDate: FieldRef<"Waste", 'DateTime'>
+    readonly discardTime: FieldRef<"Waste", 'String'>
+    readonly additionalDescription: FieldRef<"Waste", 'String'>
+    readonly images: FieldRef<"Waste", 'String[]'>
+    readonly createdAt: FieldRef<"Waste", 'DateTime'>
+    readonly updatedAt: FieldRef<"Waste", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Waste findUnique
+   */
+  export type WasteFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Waste
+     */
+    select?: WasteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Waste
+     */
+    omit?: WasteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WasteInclude<ExtArgs> | null
+    /**
+     * Filter, which Waste to fetch.
+     */
+    where: WasteWhereUniqueInput
+  }
+
+  /**
+   * Waste findUniqueOrThrow
+   */
+  export type WasteFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Waste
+     */
+    select?: WasteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Waste
+     */
+    omit?: WasteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WasteInclude<ExtArgs> | null
+    /**
+     * Filter, which Waste to fetch.
+     */
+    where: WasteWhereUniqueInput
+  }
+
+  /**
+   * Waste findFirst
+   */
+  export type WasteFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Waste
+     */
+    select?: WasteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Waste
+     */
+    omit?: WasteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WasteInclude<ExtArgs> | null
+    /**
+     * Filter, which Waste to fetch.
+     */
+    where?: WasteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Wastes to fetch.
+     */
+    orderBy?: WasteOrderByWithRelationInput | WasteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Wastes.
+     */
+    cursor?: WasteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Wastes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Wastes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Wastes.
+     */
+    distinct?: WasteScalarFieldEnum | WasteScalarFieldEnum[]
+  }
+
+  /**
+   * Waste findFirstOrThrow
+   */
+  export type WasteFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Waste
+     */
+    select?: WasteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Waste
+     */
+    omit?: WasteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WasteInclude<ExtArgs> | null
+    /**
+     * Filter, which Waste to fetch.
+     */
+    where?: WasteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Wastes to fetch.
+     */
+    orderBy?: WasteOrderByWithRelationInput | WasteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Wastes.
+     */
+    cursor?: WasteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Wastes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Wastes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Wastes.
+     */
+    distinct?: WasteScalarFieldEnum | WasteScalarFieldEnum[]
+  }
+
+  /**
+   * Waste findMany
+   */
+  export type WasteFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Waste
+     */
+    select?: WasteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Waste
+     */
+    omit?: WasteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WasteInclude<ExtArgs> | null
+    /**
+     * Filter, which Wastes to fetch.
+     */
+    where?: WasteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Wastes to fetch.
+     */
+    orderBy?: WasteOrderByWithRelationInput | WasteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Wastes.
+     */
+    cursor?: WasteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Wastes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Wastes.
+     */
+    skip?: number
+    distinct?: WasteScalarFieldEnum | WasteScalarFieldEnum[]
+  }
+
+  /**
+   * Waste create
+   */
+  export type WasteCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Waste
+     */
+    select?: WasteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Waste
+     */
+    omit?: WasteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WasteInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Waste.
+     */
+    data: XOR<WasteCreateInput, WasteUncheckedCreateInput>
+  }
+
+  /**
+   * Waste createMany
+   */
+  export type WasteCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Wastes.
+     */
+    data: WasteCreateManyInput | WasteCreateManyInput[]
+  }
+
+  /**
+   * Waste update
+   */
+  export type WasteUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Waste
+     */
+    select?: WasteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Waste
+     */
+    omit?: WasteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WasteInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Waste.
+     */
+    data: XOR<WasteUpdateInput, WasteUncheckedUpdateInput>
+    /**
+     * Choose, which Waste to update.
+     */
+    where: WasteWhereUniqueInput
+  }
+
+  /**
+   * Waste updateMany
+   */
+  export type WasteUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Wastes.
+     */
+    data: XOR<WasteUpdateManyMutationInput, WasteUncheckedUpdateManyInput>
+    /**
+     * Filter which Wastes to update
+     */
+    where?: WasteWhereInput
+    /**
+     * Limit how many Wastes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Waste upsert
+   */
+  export type WasteUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Waste
+     */
+    select?: WasteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Waste
+     */
+    omit?: WasteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WasteInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Waste to update in case it exists.
+     */
+    where: WasteWhereUniqueInput
+    /**
+     * In case the Waste found by the `where` argument doesn't exist, create a new Waste with this data.
+     */
+    create: XOR<WasteCreateInput, WasteUncheckedCreateInput>
+    /**
+     * In case the Waste was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<WasteUpdateInput, WasteUncheckedUpdateInput>
+  }
+
+  /**
+   * Waste delete
+   */
+  export type WasteDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Waste
+     */
+    select?: WasteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Waste
+     */
+    omit?: WasteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WasteInclude<ExtArgs> | null
+    /**
+     * Filter which Waste to delete.
+     */
+    where: WasteWhereUniqueInput
+  }
+
+  /**
+   * Waste deleteMany
+   */
+  export type WasteDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Wastes to delete
+     */
+    where?: WasteWhereInput
+    /**
+     * Limit how many Wastes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Waste findRaw
+   */
+  export type WasteFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Waste aggregateRaw
+   */
+  export type WasteAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Waste without action
+   */
+  export type WasteDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Waste
+     */
+    select?: WasteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Waste
+     */
+    omit?: WasteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WasteInclude<ExtArgs> | null
   }
 
 
@@ -3070,10 +4491,36 @@ export namespace Prisma {
     longitude: 'longitude',
     latitude: 'latitude',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    number: 'number',
+    complement: 'complement',
+    neighborhood: 'neighborhood',
+    reference: 'reference',
+    isMain: 'isMain'
   };
 
   export type AddressScalarFieldEnum = (typeof AddressScalarFieldEnum)[keyof typeof AddressScalarFieldEnum]
+
+
+  export const WasteScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    addressId: 'addressId',
+    wasteType: 'wasteType',
+    weight: 'weight',
+    quantity: 'quantity',
+    unit: 'unit',
+    condition: 'condition',
+    hasPackaging: 'hasPackaging',
+    discardDate: 'discardDate',
+    discardTime: 'discardTime',
+    additionalDescription: 'additionalDescription',
+    images: 'images',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type WasteScalarFieldEnum = (typeof WasteScalarFieldEnum)[keyof typeof WasteScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -3140,6 +4587,27 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
+   * Reference to a field of type 'WasteType'
+   */
+  export type EnumWasteTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WasteType'>
+    
+
+
+  /**
+   * Reference to a field of type 'WasteType[]'
+   */
+  export type ListEnumWasteTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WasteType[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -3150,6 +4618,34 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'WasteUnit'
+   */
+  export type EnumWasteUnitFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WasteUnit'>
+    
+
+
+  /**
+   * Reference to a field of type 'WasteUnit[]'
+   */
+  export type ListEnumWasteUnitFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WasteUnit[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'WasteCondition'
+   */
+  export type EnumWasteConditionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WasteCondition'>
+    
+
+
+  /**
+   * Reference to a field of type 'WasteCondition[]'
+   */
+  export type ListEnumWasteConditionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WasteCondition[]'>
     
   /**
    * Deep Input Types
@@ -3167,6 +4663,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     Address?: AddressListRelationFilter
+    Waste?: WasteListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -3177,6 +4674,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     Address?: AddressOrderByRelationAggregateInput
+    Waste?: WasteOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -3190,6 +4688,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     Address?: AddressListRelationFilter
+    Waste?: WasteListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -3231,7 +4730,13 @@ export namespace Prisma {
     latitude?: FloatNullableFilter<"Address"> | number | null
     createdAt?: DateTimeFilter<"Address"> | Date | string
     updatedAt?: DateTimeFilter<"Address"> | Date | string
+    number?: StringNullableFilter<"Address"> | string | null
+    complement?: StringNullableFilter<"Address"> | string | null
+    neighborhood?: StringNullableFilter<"Address"> | string | null
+    reference?: StringNullableFilter<"Address"> | string | null
+    isMain?: BoolFilter<"Address"> | boolean
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    Waste?: WasteListRelationFilter
   }
 
   export type AddressOrderByWithRelationInput = {
@@ -3246,7 +4751,13 @@ export namespace Prisma {
     latitude?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    number?: SortOrder
+    complement?: SortOrder
+    neighborhood?: SortOrder
+    reference?: SortOrder
+    isMain?: SortOrder
     user?: UserOrderByWithRelationInput
+    Waste?: WasteOrderByRelationAggregateInput
   }
 
   export type AddressWhereUniqueInput = Prisma.AtLeast<{
@@ -3264,7 +4775,13 @@ export namespace Prisma {
     latitude?: FloatNullableFilter<"Address"> | number | null
     createdAt?: DateTimeFilter<"Address"> | Date | string
     updatedAt?: DateTimeFilter<"Address"> | Date | string
+    number?: StringNullableFilter<"Address"> | string | null
+    complement?: StringNullableFilter<"Address"> | string | null
+    neighborhood?: StringNullableFilter<"Address"> | string | null
+    reference?: StringNullableFilter<"Address"> | string | null
+    isMain?: BoolFilter<"Address"> | boolean
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    Waste?: WasteListRelationFilter
   }, "id">
 
   export type AddressOrderByWithAggregationInput = {
@@ -3279,6 +4796,11 @@ export namespace Prisma {
     latitude?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    number?: SortOrder
+    complement?: SortOrder
+    neighborhood?: SortOrder
+    reference?: SortOrder
+    isMain?: SortOrder
     _count?: AddressCountOrderByAggregateInput
     _avg?: AddressAvgOrderByAggregateInput
     _max?: AddressMaxOrderByAggregateInput
@@ -3301,6 +4823,121 @@ export namespace Prisma {
     latitude?: FloatNullableWithAggregatesFilter<"Address"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"Address"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Address"> | Date | string
+    number?: StringNullableWithAggregatesFilter<"Address"> | string | null
+    complement?: StringNullableWithAggregatesFilter<"Address"> | string | null
+    neighborhood?: StringNullableWithAggregatesFilter<"Address"> | string | null
+    reference?: StringNullableWithAggregatesFilter<"Address"> | string | null
+    isMain?: BoolWithAggregatesFilter<"Address"> | boolean
+  }
+
+  export type WasteWhereInput = {
+    AND?: WasteWhereInput | WasteWhereInput[]
+    OR?: WasteWhereInput[]
+    NOT?: WasteWhereInput | WasteWhereInput[]
+    id?: StringFilter<"Waste"> | string
+    userId?: StringFilter<"Waste"> | string
+    addressId?: StringFilter<"Waste"> | string
+    wasteType?: EnumWasteTypeFilter<"Waste"> | $Enums.WasteType
+    weight?: FloatFilter<"Waste"> | number
+    quantity?: IntFilter<"Waste"> | number
+    unit?: EnumWasteUnitFilter<"Waste"> | $Enums.WasteUnit
+    condition?: EnumWasteConditionFilter<"Waste"> | $Enums.WasteCondition
+    hasPackaging?: BoolFilter<"Waste"> | boolean
+    discardDate?: DateTimeFilter<"Waste"> | Date | string
+    discardTime?: StringFilter<"Waste"> | string
+    additionalDescription?: StringNullableFilter<"Waste"> | string | null
+    images?: StringNullableListFilter<"Waste">
+    createdAt?: DateTimeFilter<"Waste"> | Date | string
+    updatedAt?: DateTimeFilter<"Waste"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    address?: XOR<AddressScalarRelationFilter, AddressWhereInput>
+  }
+
+  export type WasteOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    addressId?: SortOrder
+    wasteType?: SortOrder
+    weight?: SortOrder
+    quantity?: SortOrder
+    unit?: SortOrder
+    condition?: SortOrder
+    hasPackaging?: SortOrder
+    discardDate?: SortOrder
+    discardTime?: SortOrder
+    additionalDescription?: SortOrder
+    images?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    address?: AddressOrderByWithRelationInput
+  }
+
+  export type WasteWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: WasteWhereInput | WasteWhereInput[]
+    OR?: WasteWhereInput[]
+    NOT?: WasteWhereInput | WasteWhereInput[]
+    userId?: StringFilter<"Waste"> | string
+    addressId?: StringFilter<"Waste"> | string
+    wasteType?: EnumWasteTypeFilter<"Waste"> | $Enums.WasteType
+    weight?: FloatFilter<"Waste"> | number
+    quantity?: IntFilter<"Waste"> | number
+    unit?: EnumWasteUnitFilter<"Waste"> | $Enums.WasteUnit
+    condition?: EnumWasteConditionFilter<"Waste"> | $Enums.WasteCondition
+    hasPackaging?: BoolFilter<"Waste"> | boolean
+    discardDate?: DateTimeFilter<"Waste"> | Date | string
+    discardTime?: StringFilter<"Waste"> | string
+    additionalDescription?: StringNullableFilter<"Waste"> | string | null
+    images?: StringNullableListFilter<"Waste">
+    createdAt?: DateTimeFilter<"Waste"> | Date | string
+    updatedAt?: DateTimeFilter<"Waste"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    address?: XOR<AddressScalarRelationFilter, AddressWhereInput>
+  }, "id">
+
+  export type WasteOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    addressId?: SortOrder
+    wasteType?: SortOrder
+    weight?: SortOrder
+    quantity?: SortOrder
+    unit?: SortOrder
+    condition?: SortOrder
+    hasPackaging?: SortOrder
+    discardDate?: SortOrder
+    discardTime?: SortOrder
+    additionalDescription?: SortOrder
+    images?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: WasteCountOrderByAggregateInput
+    _avg?: WasteAvgOrderByAggregateInput
+    _max?: WasteMaxOrderByAggregateInput
+    _min?: WasteMinOrderByAggregateInput
+    _sum?: WasteSumOrderByAggregateInput
+  }
+
+  export type WasteScalarWhereWithAggregatesInput = {
+    AND?: WasteScalarWhereWithAggregatesInput | WasteScalarWhereWithAggregatesInput[]
+    OR?: WasteScalarWhereWithAggregatesInput[]
+    NOT?: WasteScalarWhereWithAggregatesInput | WasteScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Waste"> | string
+    userId?: StringWithAggregatesFilter<"Waste"> | string
+    addressId?: StringWithAggregatesFilter<"Waste"> | string
+    wasteType?: EnumWasteTypeWithAggregatesFilter<"Waste"> | $Enums.WasteType
+    weight?: FloatWithAggregatesFilter<"Waste"> | number
+    quantity?: IntWithAggregatesFilter<"Waste"> | number
+    unit?: EnumWasteUnitWithAggregatesFilter<"Waste"> | $Enums.WasteUnit
+    condition?: EnumWasteConditionWithAggregatesFilter<"Waste"> | $Enums.WasteCondition
+    hasPackaging?: BoolWithAggregatesFilter<"Waste"> | boolean
+    discardDate?: DateTimeWithAggregatesFilter<"Waste"> | Date | string
+    discardTime?: StringWithAggregatesFilter<"Waste"> | string
+    additionalDescription?: StringNullableWithAggregatesFilter<"Waste"> | string | null
+    images?: StringNullableListFilter<"Waste">
+    createdAt?: DateTimeWithAggregatesFilter<"Waste"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Waste"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -3311,6 +4948,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     Address?: AddressCreateNestedManyWithoutUserInput
+    Waste?: WasteCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -3321,6 +4959,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     Address?: AddressUncheckedCreateNestedManyWithoutUserInput
+    Waste?: WasteUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -3330,6 +4969,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Address?: AddressUpdateManyWithoutUserNestedInput
+    Waste?: WasteUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -3339,6 +4979,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Address?: AddressUncheckedUpdateManyWithoutUserNestedInput
+    Waste?: WasteUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -3377,7 +5018,13 @@ export namespace Prisma {
     latitude?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    number?: string | null
+    complement?: string | null
+    neighborhood?: string | null
+    reference?: string | null
+    isMain?: boolean
     user: UserCreateNestedOneWithoutAddressInput
+    Waste?: WasteCreateNestedManyWithoutAddressInput
   }
 
   export type AddressUncheckedCreateInput = {
@@ -3392,6 +5039,12 @@ export namespace Prisma {
     latitude?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    number?: string | null
+    complement?: string | null
+    neighborhood?: string | null
+    reference?: string | null
+    isMain?: boolean
+    Waste?: WasteUncheckedCreateNestedManyWithoutAddressInput
   }
 
   export type AddressUpdateInput = {
@@ -3404,7 +5057,13 @@ export namespace Prisma {
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    number?: NullableStringFieldUpdateOperationsInput | string | null
+    complement?: NullableStringFieldUpdateOperationsInput | string | null
+    neighborhood?: NullableStringFieldUpdateOperationsInput | string | null
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    isMain?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneRequiredWithoutAddressNestedInput
+    Waste?: WasteUpdateManyWithoutAddressNestedInput
   }
 
   export type AddressUncheckedUpdateInput = {
@@ -3418,6 +5077,12 @@ export namespace Prisma {
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    number?: NullableStringFieldUpdateOperationsInput | string | null
+    complement?: NullableStringFieldUpdateOperationsInput | string | null
+    neighborhood?: NullableStringFieldUpdateOperationsInput | string | null
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    isMain?: BoolFieldUpdateOperationsInput | boolean
+    Waste?: WasteUncheckedUpdateManyWithoutAddressNestedInput
   }
 
   export type AddressCreateManyInput = {
@@ -3432,6 +5097,11 @@ export namespace Prisma {
     latitude?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    number?: string | null
+    complement?: string | null
+    neighborhood?: string | null
+    reference?: string | null
+    isMain?: boolean
   }
 
   export type AddressUpdateManyMutationInput = {
@@ -3444,6 +5114,11 @@ export namespace Prisma {
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    number?: NullableStringFieldUpdateOperationsInput | string | null
+    complement?: NullableStringFieldUpdateOperationsInput | string | null
+    neighborhood?: NullableStringFieldUpdateOperationsInput | string | null
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    isMain?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AddressUncheckedUpdateManyInput = {
@@ -3455,6 +5130,131 @@ export namespace Prisma {
     country?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    number?: NullableStringFieldUpdateOperationsInput | string | null
+    complement?: NullableStringFieldUpdateOperationsInput | string | null
+    neighborhood?: NullableStringFieldUpdateOperationsInput | string | null
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    isMain?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type WasteCreateInput = {
+    id?: string
+    wasteType: $Enums.WasteType
+    weight: number
+    quantity: number
+    unit: $Enums.WasteUnit
+    condition: $Enums.WasteCondition
+    hasPackaging: boolean
+    discardDate: Date | string
+    discardTime: string
+    additionalDescription?: string | null
+    images?: WasteCreateimagesInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutWasteInput
+    address: AddressCreateNestedOneWithoutWasteInput
+  }
+
+  export type WasteUncheckedCreateInput = {
+    id?: string
+    userId: string
+    addressId: string
+    wasteType: $Enums.WasteType
+    weight: number
+    quantity: number
+    unit: $Enums.WasteUnit
+    condition: $Enums.WasteCondition
+    hasPackaging: boolean
+    discardDate: Date | string
+    discardTime: string
+    additionalDescription?: string | null
+    images?: WasteCreateimagesInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type WasteUpdateInput = {
+    wasteType?: EnumWasteTypeFieldUpdateOperationsInput | $Enums.WasteType
+    weight?: FloatFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+    unit?: EnumWasteUnitFieldUpdateOperationsInput | $Enums.WasteUnit
+    condition?: EnumWasteConditionFieldUpdateOperationsInput | $Enums.WasteCondition
+    hasPackaging?: BoolFieldUpdateOperationsInput | boolean
+    discardDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    discardTime?: StringFieldUpdateOperationsInput | string
+    additionalDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    images?: WasteUpdateimagesInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutWasteNestedInput
+    address?: AddressUpdateOneRequiredWithoutWasteNestedInput
+  }
+
+  export type WasteUncheckedUpdateInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    addressId?: StringFieldUpdateOperationsInput | string
+    wasteType?: EnumWasteTypeFieldUpdateOperationsInput | $Enums.WasteType
+    weight?: FloatFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+    unit?: EnumWasteUnitFieldUpdateOperationsInput | $Enums.WasteUnit
+    condition?: EnumWasteConditionFieldUpdateOperationsInput | $Enums.WasteCondition
+    hasPackaging?: BoolFieldUpdateOperationsInput | boolean
+    discardDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    discardTime?: StringFieldUpdateOperationsInput | string
+    additionalDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    images?: WasteUpdateimagesInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WasteCreateManyInput = {
+    id?: string
+    userId: string
+    addressId: string
+    wasteType: $Enums.WasteType
+    weight: number
+    quantity: number
+    unit: $Enums.WasteUnit
+    condition: $Enums.WasteCondition
+    hasPackaging: boolean
+    discardDate: Date | string
+    discardTime: string
+    additionalDescription?: string | null
+    images?: WasteCreateimagesInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type WasteUpdateManyMutationInput = {
+    wasteType?: EnumWasteTypeFieldUpdateOperationsInput | $Enums.WasteType
+    weight?: FloatFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+    unit?: EnumWasteUnitFieldUpdateOperationsInput | $Enums.WasteUnit
+    condition?: EnumWasteConditionFieldUpdateOperationsInput | $Enums.WasteCondition
+    hasPackaging?: BoolFieldUpdateOperationsInput | boolean
+    discardDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    discardTime?: StringFieldUpdateOperationsInput | string
+    additionalDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    images?: WasteUpdateimagesInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WasteUncheckedUpdateManyInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    addressId?: StringFieldUpdateOperationsInput | string
+    wasteType?: EnumWasteTypeFieldUpdateOperationsInput | $Enums.WasteType
+    weight?: FloatFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+    unit?: EnumWasteUnitFieldUpdateOperationsInput | $Enums.WasteUnit
+    condition?: EnumWasteConditionFieldUpdateOperationsInput | $Enums.WasteCondition
+    hasPackaging?: BoolFieldUpdateOperationsInput | boolean
+    discardDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    discardTime?: StringFieldUpdateOperationsInput | string
+    additionalDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    images?: WasteUpdateimagesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -3491,7 +5291,17 @@ export namespace Prisma {
     none?: AddressWhereInput
   }
 
+  export type WasteListRelationFilter = {
+    every?: WasteWhereInput
+    some?: WasteWhereInput
+    none?: WasteWhereInput
+  }
+
   export type AddressOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type WasteOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -3582,6 +5392,11 @@ export namespace Prisma {
     isSet?: boolean
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
@@ -3599,6 +5414,11 @@ export namespace Prisma {
     latitude?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    number?: SortOrder
+    complement?: SortOrder
+    neighborhood?: SortOrder
+    reference?: SortOrder
+    isMain?: SortOrder
   }
 
   export type AddressAvgOrderByAggregateInput = {
@@ -3618,6 +5438,11 @@ export namespace Prisma {
     latitude?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    number?: SortOrder
+    complement?: SortOrder
+    neighborhood?: SortOrder
+    reference?: SortOrder
+    isMain?: SortOrder
   }
 
   export type AddressMinOrderByAggregateInput = {
@@ -3632,6 +5457,11 @@ export namespace Prisma {
     latitude?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    number?: SortOrder
+    complement?: SortOrder
+    neighborhood?: SortOrder
+    reference?: SortOrder
+    isMain?: SortOrder
   }
 
   export type AddressSumOrderByAggregateInput = {
@@ -3675,6 +5505,194 @@ export namespace Prisma {
     isSet?: boolean
   }
 
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type EnumWasteTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.WasteType | EnumWasteTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.WasteType[] | ListEnumWasteTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.WasteType[] | ListEnumWasteTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumWasteTypeFilter<$PrismaModel> | $Enums.WasteType
+  }
+
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type EnumWasteUnitFilter<$PrismaModel = never> = {
+    equals?: $Enums.WasteUnit | EnumWasteUnitFieldRefInput<$PrismaModel>
+    in?: $Enums.WasteUnit[] | ListEnumWasteUnitFieldRefInput<$PrismaModel>
+    notIn?: $Enums.WasteUnit[] | ListEnumWasteUnitFieldRefInput<$PrismaModel>
+    not?: NestedEnumWasteUnitFilter<$PrismaModel> | $Enums.WasteUnit
+  }
+
+  export type EnumWasteConditionFilter<$PrismaModel = never> = {
+    equals?: $Enums.WasteCondition | EnumWasteConditionFieldRefInput<$PrismaModel>
+    in?: $Enums.WasteCondition[] | ListEnumWasteConditionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.WasteCondition[] | ListEnumWasteConditionFieldRefInput<$PrismaModel>
+    not?: NestedEnumWasteConditionFilter<$PrismaModel> | $Enums.WasteCondition
+  }
+
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
+  export type AddressScalarRelationFilter = {
+    is?: AddressWhereInput
+    isNot?: AddressWhereInput
+  }
+
+  export type WasteCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    addressId?: SortOrder
+    wasteType?: SortOrder
+    weight?: SortOrder
+    quantity?: SortOrder
+    unit?: SortOrder
+    condition?: SortOrder
+    hasPackaging?: SortOrder
+    discardDate?: SortOrder
+    discardTime?: SortOrder
+    additionalDescription?: SortOrder
+    images?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type WasteAvgOrderByAggregateInput = {
+    weight?: SortOrder
+    quantity?: SortOrder
+  }
+
+  export type WasteMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    addressId?: SortOrder
+    wasteType?: SortOrder
+    weight?: SortOrder
+    quantity?: SortOrder
+    unit?: SortOrder
+    condition?: SortOrder
+    hasPackaging?: SortOrder
+    discardDate?: SortOrder
+    discardTime?: SortOrder
+    additionalDescription?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type WasteMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    addressId?: SortOrder
+    wasteType?: SortOrder
+    weight?: SortOrder
+    quantity?: SortOrder
+    unit?: SortOrder
+    condition?: SortOrder
+    hasPackaging?: SortOrder
+    discardDate?: SortOrder
+    discardTime?: SortOrder
+    additionalDescription?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type WasteSumOrderByAggregateInput = {
+    weight?: SortOrder
+    quantity?: SortOrder
+  }
+
+  export type EnumWasteTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.WasteType | EnumWasteTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.WasteType[] | ListEnumWasteTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.WasteType[] | ListEnumWasteTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumWasteTypeWithAggregatesFilter<$PrismaModel> | $Enums.WasteType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumWasteTypeFilter<$PrismaModel>
+    _max?: NestedEnumWasteTypeFilter<$PrismaModel>
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type EnumWasteUnitWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.WasteUnit | EnumWasteUnitFieldRefInput<$PrismaModel>
+    in?: $Enums.WasteUnit[] | ListEnumWasteUnitFieldRefInput<$PrismaModel>
+    notIn?: $Enums.WasteUnit[] | ListEnumWasteUnitFieldRefInput<$PrismaModel>
+    not?: NestedEnumWasteUnitWithAggregatesFilter<$PrismaModel> | $Enums.WasteUnit
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumWasteUnitFilter<$PrismaModel>
+    _max?: NestedEnumWasteUnitFilter<$PrismaModel>
+  }
+
+  export type EnumWasteConditionWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.WasteCondition | EnumWasteConditionFieldRefInput<$PrismaModel>
+    in?: $Enums.WasteCondition[] | ListEnumWasteConditionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.WasteCondition[] | ListEnumWasteConditionFieldRefInput<$PrismaModel>
+    not?: NestedEnumWasteConditionWithAggregatesFilter<$PrismaModel> | $Enums.WasteCondition
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumWasteConditionFilter<$PrismaModel>
+    _max?: NestedEnumWasteConditionFilter<$PrismaModel>
+  }
+
   export type AddressCreateNestedManyWithoutUserInput = {
     create?: XOR<AddressCreateWithoutUserInput, AddressUncheckedCreateWithoutUserInput> | AddressCreateWithoutUserInput[] | AddressUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AddressCreateOrConnectWithoutUserInput | AddressCreateOrConnectWithoutUserInput[]
@@ -3682,11 +5700,25 @@ export namespace Prisma {
     connect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
   }
 
+  export type WasteCreateNestedManyWithoutUserInput = {
+    create?: XOR<WasteCreateWithoutUserInput, WasteUncheckedCreateWithoutUserInput> | WasteCreateWithoutUserInput[] | WasteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WasteCreateOrConnectWithoutUserInput | WasteCreateOrConnectWithoutUserInput[]
+    createMany?: WasteCreateManyUserInputEnvelope
+    connect?: WasteWhereUniqueInput | WasteWhereUniqueInput[]
+  }
+
   export type AddressUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AddressCreateWithoutUserInput, AddressUncheckedCreateWithoutUserInput> | AddressCreateWithoutUserInput[] | AddressUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AddressCreateOrConnectWithoutUserInput | AddressCreateOrConnectWithoutUserInput[]
     createMany?: AddressCreateManyUserInputEnvelope
     connect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+  }
+
+  export type WasteUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<WasteCreateWithoutUserInput, WasteUncheckedCreateWithoutUserInput> | WasteCreateWithoutUserInput[] | WasteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WasteCreateOrConnectWithoutUserInput | WasteCreateOrConnectWithoutUserInput[]
+    createMany?: WasteCreateManyUserInputEnvelope
+    connect?: WasteWhereUniqueInput | WasteWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -3711,6 +5743,20 @@ export namespace Prisma {
     deleteMany?: AddressScalarWhereInput | AddressScalarWhereInput[]
   }
 
+  export type WasteUpdateManyWithoutUserNestedInput = {
+    create?: XOR<WasteCreateWithoutUserInput, WasteUncheckedCreateWithoutUserInput> | WasteCreateWithoutUserInput[] | WasteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WasteCreateOrConnectWithoutUserInput | WasteCreateOrConnectWithoutUserInput[]
+    upsert?: WasteUpsertWithWhereUniqueWithoutUserInput | WasteUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: WasteCreateManyUserInputEnvelope
+    set?: WasteWhereUniqueInput | WasteWhereUniqueInput[]
+    disconnect?: WasteWhereUniqueInput | WasteWhereUniqueInput[]
+    delete?: WasteWhereUniqueInput | WasteWhereUniqueInput[]
+    connect?: WasteWhereUniqueInput | WasteWhereUniqueInput[]
+    update?: WasteUpdateWithWhereUniqueWithoutUserInput | WasteUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: WasteUpdateManyWithWhereWithoutUserInput | WasteUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: WasteScalarWhereInput | WasteScalarWhereInput[]
+  }
+
   export type AddressUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AddressCreateWithoutUserInput, AddressUncheckedCreateWithoutUserInput> | AddressCreateWithoutUserInput[] | AddressUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AddressCreateOrConnectWithoutUserInput | AddressCreateOrConnectWithoutUserInput[]
@@ -3725,10 +5771,38 @@ export namespace Prisma {
     deleteMany?: AddressScalarWhereInput | AddressScalarWhereInput[]
   }
 
+  export type WasteUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<WasteCreateWithoutUserInput, WasteUncheckedCreateWithoutUserInput> | WasteCreateWithoutUserInput[] | WasteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WasteCreateOrConnectWithoutUserInput | WasteCreateOrConnectWithoutUserInput[]
+    upsert?: WasteUpsertWithWhereUniqueWithoutUserInput | WasteUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: WasteCreateManyUserInputEnvelope
+    set?: WasteWhereUniqueInput | WasteWhereUniqueInput[]
+    disconnect?: WasteWhereUniqueInput | WasteWhereUniqueInput[]
+    delete?: WasteWhereUniqueInput | WasteWhereUniqueInput[]
+    connect?: WasteWhereUniqueInput | WasteWhereUniqueInput[]
+    update?: WasteUpdateWithWhereUniqueWithoutUserInput | WasteUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: WasteUpdateManyWithWhereWithoutUserInput | WasteUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: WasteScalarWhereInput | WasteScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutAddressInput = {
     create?: XOR<UserCreateWithoutAddressInput, UserUncheckedCreateWithoutAddressInput>
     connectOrCreate?: UserCreateOrConnectWithoutAddressInput
     connect?: UserWhereUniqueInput
+  }
+
+  export type WasteCreateNestedManyWithoutAddressInput = {
+    create?: XOR<WasteCreateWithoutAddressInput, WasteUncheckedCreateWithoutAddressInput> | WasteCreateWithoutAddressInput[] | WasteUncheckedCreateWithoutAddressInput[]
+    connectOrCreate?: WasteCreateOrConnectWithoutAddressInput | WasteCreateOrConnectWithoutAddressInput[]
+    createMany?: WasteCreateManyAddressInputEnvelope
+    connect?: WasteWhereUniqueInput | WasteWhereUniqueInput[]
+  }
+
+  export type WasteUncheckedCreateNestedManyWithoutAddressInput = {
+    create?: XOR<WasteCreateWithoutAddressInput, WasteUncheckedCreateWithoutAddressInput> | WasteCreateWithoutAddressInput[] | WasteUncheckedCreateWithoutAddressInput[]
+    connectOrCreate?: WasteCreateOrConnectWithoutAddressInput | WasteCreateOrConnectWithoutAddressInput[]
+    createMany?: WasteCreateManyAddressInputEnvelope
+    connect?: WasteWhereUniqueInput | WasteWhereUniqueInput[]
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
@@ -3745,12 +5819,109 @@ export namespace Prisma {
     unset?: boolean
   }
 
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
   export type UserUpdateOneRequiredWithoutAddressNestedInput = {
     create?: XOR<UserCreateWithoutAddressInput, UserUncheckedCreateWithoutAddressInput>
     connectOrCreate?: UserCreateOrConnectWithoutAddressInput
     upsert?: UserUpsertWithoutAddressInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAddressInput, UserUpdateWithoutAddressInput>, UserUncheckedUpdateWithoutAddressInput>
+  }
+
+  export type WasteUpdateManyWithoutAddressNestedInput = {
+    create?: XOR<WasteCreateWithoutAddressInput, WasteUncheckedCreateWithoutAddressInput> | WasteCreateWithoutAddressInput[] | WasteUncheckedCreateWithoutAddressInput[]
+    connectOrCreate?: WasteCreateOrConnectWithoutAddressInput | WasteCreateOrConnectWithoutAddressInput[]
+    upsert?: WasteUpsertWithWhereUniqueWithoutAddressInput | WasteUpsertWithWhereUniqueWithoutAddressInput[]
+    createMany?: WasteCreateManyAddressInputEnvelope
+    set?: WasteWhereUniqueInput | WasteWhereUniqueInput[]
+    disconnect?: WasteWhereUniqueInput | WasteWhereUniqueInput[]
+    delete?: WasteWhereUniqueInput | WasteWhereUniqueInput[]
+    connect?: WasteWhereUniqueInput | WasteWhereUniqueInput[]
+    update?: WasteUpdateWithWhereUniqueWithoutAddressInput | WasteUpdateWithWhereUniqueWithoutAddressInput[]
+    updateMany?: WasteUpdateManyWithWhereWithoutAddressInput | WasteUpdateManyWithWhereWithoutAddressInput[]
+    deleteMany?: WasteScalarWhereInput | WasteScalarWhereInput[]
+  }
+
+  export type WasteUncheckedUpdateManyWithoutAddressNestedInput = {
+    create?: XOR<WasteCreateWithoutAddressInput, WasteUncheckedCreateWithoutAddressInput> | WasteCreateWithoutAddressInput[] | WasteUncheckedCreateWithoutAddressInput[]
+    connectOrCreate?: WasteCreateOrConnectWithoutAddressInput | WasteCreateOrConnectWithoutAddressInput[]
+    upsert?: WasteUpsertWithWhereUniqueWithoutAddressInput | WasteUpsertWithWhereUniqueWithoutAddressInput[]
+    createMany?: WasteCreateManyAddressInputEnvelope
+    set?: WasteWhereUniqueInput | WasteWhereUniqueInput[]
+    disconnect?: WasteWhereUniqueInput | WasteWhereUniqueInput[]
+    delete?: WasteWhereUniqueInput | WasteWhereUniqueInput[]
+    connect?: WasteWhereUniqueInput | WasteWhereUniqueInput[]
+    update?: WasteUpdateWithWhereUniqueWithoutAddressInput | WasteUpdateWithWhereUniqueWithoutAddressInput[]
+    updateMany?: WasteUpdateManyWithWhereWithoutAddressInput | WasteUpdateManyWithWhereWithoutAddressInput[]
+    deleteMany?: WasteScalarWhereInput | WasteScalarWhereInput[]
+  }
+
+  export type WasteCreateimagesInput = {
+    set: string[]
+  }
+
+  export type UserCreateNestedOneWithoutWasteInput = {
+    create?: XOR<UserCreateWithoutWasteInput, UserUncheckedCreateWithoutWasteInput>
+    connectOrCreate?: UserCreateOrConnectWithoutWasteInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type AddressCreateNestedOneWithoutWasteInput = {
+    create?: XOR<AddressCreateWithoutWasteInput, AddressUncheckedCreateWithoutWasteInput>
+    connectOrCreate?: AddressCreateOrConnectWithoutWasteInput
+    connect?: AddressWhereUniqueInput
+  }
+
+  export type EnumWasteTypeFieldUpdateOperationsInput = {
+    set?: $Enums.WasteType
+  }
+
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type EnumWasteUnitFieldUpdateOperationsInput = {
+    set?: $Enums.WasteUnit
+  }
+
+  export type EnumWasteConditionFieldUpdateOperationsInput = {
+    set?: $Enums.WasteCondition
+  }
+
+  export type WasteUpdateimagesInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type UserUpdateOneRequiredWithoutWasteNestedInput = {
+    create?: XOR<UserCreateWithoutWasteInput, UserUncheckedCreateWithoutWasteInput>
+    connectOrCreate?: UserCreateOrConnectWithoutWasteInput
+    upsert?: UserUpsertWithoutWasteInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutWasteInput, UserUpdateWithoutWasteInput>, UserUncheckedUpdateWithoutWasteInput>
+  }
+
+  export type AddressUpdateOneRequiredWithoutWasteNestedInput = {
+    create?: XOR<AddressCreateWithoutWasteInput, AddressUncheckedCreateWithoutWasteInput>
+    connectOrCreate?: AddressCreateOrConnectWithoutWasteInput
+    upsert?: AddressUpsertWithoutWasteInput
+    connect?: AddressWhereUniqueInput
+    update?: XOR<XOR<AddressUpdateToOneWithWhereWithoutWasteInput, AddressUpdateWithoutWasteInput>, AddressUncheckedUpdateWithoutWasteInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -3847,6 +6018,11 @@ export namespace Prisma {
     isSet?: boolean
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -3894,6 +6070,108 @@ export namespace Prisma {
     isSet?: boolean
   }
 
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type NestedEnumWasteTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.WasteType | EnumWasteTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.WasteType[] | ListEnumWasteTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.WasteType[] | ListEnumWasteTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumWasteTypeFilter<$PrismaModel> | $Enums.WasteType
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedEnumWasteUnitFilter<$PrismaModel = never> = {
+    equals?: $Enums.WasteUnit | EnumWasteUnitFieldRefInput<$PrismaModel>
+    in?: $Enums.WasteUnit[] | ListEnumWasteUnitFieldRefInput<$PrismaModel>
+    notIn?: $Enums.WasteUnit[] | ListEnumWasteUnitFieldRefInput<$PrismaModel>
+    not?: NestedEnumWasteUnitFilter<$PrismaModel> | $Enums.WasteUnit
+  }
+
+  export type NestedEnumWasteConditionFilter<$PrismaModel = never> = {
+    equals?: $Enums.WasteCondition | EnumWasteConditionFieldRefInput<$PrismaModel>
+    in?: $Enums.WasteCondition[] | ListEnumWasteConditionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.WasteCondition[] | ListEnumWasteConditionFieldRefInput<$PrismaModel>
+    not?: NestedEnumWasteConditionFilter<$PrismaModel> | $Enums.WasteCondition
+  }
+
+  export type NestedEnumWasteTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.WasteType | EnumWasteTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.WasteType[] | ListEnumWasteTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.WasteType[] | ListEnumWasteTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumWasteTypeWithAggregatesFilter<$PrismaModel> | $Enums.WasteType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumWasteTypeFilter<$PrismaModel>
+    _max?: NestedEnumWasteTypeFilter<$PrismaModel>
+  }
+
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedEnumWasteUnitWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.WasteUnit | EnumWasteUnitFieldRefInput<$PrismaModel>
+    in?: $Enums.WasteUnit[] | ListEnumWasteUnitFieldRefInput<$PrismaModel>
+    notIn?: $Enums.WasteUnit[] | ListEnumWasteUnitFieldRefInput<$PrismaModel>
+    not?: NestedEnumWasteUnitWithAggregatesFilter<$PrismaModel> | $Enums.WasteUnit
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumWasteUnitFilter<$PrismaModel>
+    _max?: NestedEnumWasteUnitFilter<$PrismaModel>
+  }
+
+  export type NestedEnumWasteConditionWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.WasteCondition | EnumWasteConditionFieldRefInput<$PrismaModel>
+    in?: $Enums.WasteCondition[] | ListEnumWasteConditionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.WasteCondition[] | ListEnumWasteConditionFieldRefInput<$PrismaModel>
+    not?: NestedEnumWasteConditionWithAggregatesFilter<$PrismaModel> | $Enums.WasteCondition
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumWasteConditionFilter<$PrismaModel>
+    _max?: NestedEnumWasteConditionFilter<$PrismaModel>
+  }
+
   export type AddressCreateWithoutUserInput = {
     id?: string
     street: string
@@ -3905,6 +6183,12 @@ export namespace Prisma {
     latitude?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    number?: string | null
+    complement?: string | null
+    neighborhood?: string | null
+    reference?: string | null
+    isMain?: boolean
+    Waste?: WasteCreateNestedManyWithoutAddressInput
   }
 
   export type AddressUncheckedCreateWithoutUserInput = {
@@ -3918,6 +6202,12 @@ export namespace Prisma {
     latitude?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    number?: string | null
+    complement?: string | null
+    neighborhood?: string | null
+    reference?: string | null
+    isMain?: boolean
+    Waste?: WasteUncheckedCreateNestedManyWithoutAddressInput
   }
 
   export type AddressCreateOrConnectWithoutUserInput = {
@@ -3927,6 +6217,49 @@ export namespace Prisma {
 
   export type AddressCreateManyUserInputEnvelope = {
     data: AddressCreateManyUserInput | AddressCreateManyUserInput[]
+  }
+
+  export type WasteCreateWithoutUserInput = {
+    id?: string
+    wasteType: $Enums.WasteType
+    weight: number
+    quantity: number
+    unit: $Enums.WasteUnit
+    condition: $Enums.WasteCondition
+    hasPackaging: boolean
+    discardDate: Date | string
+    discardTime: string
+    additionalDescription?: string | null
+    images?: WasteCreateimagesInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    address: AddressCreateNestedOneWithoutWasteInput
+  }
+
+  export type WasteUncheckedCreateWithoutUserInput = {
+    id?: string
+    addressId: string
+    wasteType: $Enums.WasteType
+    weight: number
+    quantity: number
+    unit: $Enums.WasteUnit
+    condition: $Enums.WasteCondition
+    hasPackaging: boolean
+    discardDate: Date | string
+    discardTime: string
+    additionalDescription?: string | null
+    images?: WasteCreateimagesInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type WasteCreateOrConnectWithoutUserInput = {
+    where: WasteWhereUniqueInput
+    create: XOR<WasteCreateWithoutUserInput, WasteUncheckedCreateWithoutUserInput>
+  }
+
+  export type WasteCreateManyUserInputEnvelope = {
+    data: WasteCreateManyUserInput | WasteCreateManyUserInput[]
   }
 
   export type AddressUpsertWithWhereUniqueWithoutUserInput = {
@@ -3960,6 +6293,48 @@ export namespace Prisma {
     latitude?: FloatNullableFilter<"Address"> | number | null
     createdAt?: DateTimeFilter<"Address"> | Date | string
     updatedAt?: DateTimeFilter<"Address"> | Date | string
+    number?: StringNullableFilter<"Address"> | string | null
+    complement?: StringNullableFilter<"Address"> | string | null
+    neighborhood?: StringNullableFilter<"Address"> | string | null
+    reference?: StringNullableFilter<"Address"> | string | null
+    isMain?: BoolFilter<"Address"> | boolean
+  }
+
+  export type WasteUpsertWithWhereUniqueWithoutUserInput = {
+    where: WasteWhereUniqueInput
+    update: XOR<WasteUpdateWithoutUserInput, WasteUncheckedUpdateWithoutUserInput>
+    create: XOR<WasteCreateWithoutUserInput, WasteUncheckedCreateWithoutUserInput>
+  }
+
+  export type WasteUpdateWithWhereUniqueWithoutUserInput = {
+    where: WasteWhereUniqueInput
+    data: XOR<WasteUpdateWithoutUserInput, WasteUncheckedUpdateWithoutUserInput>
+  }
+
+  export type WasteUpdateManyWithWhereWithoutUserInput = {
+    where: WasteScalarWhereInput
+    data: XOR<WasteUpdateManyMutationInput, WasteUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type WasteScalarWhereInput = {
+    AND?: WasteScalarWhereInput | WasteScalarWhereInput[]
+    OR?: WasteScalarWhereInput[]
+    NOT?: WasteScalarWhereInput | WasteScalarWhereInput[]
+    id?: StringFilter<"Waste"> | string
+    userId?: StringFilter<"Waste"> | string
+    addressId?: StringFilter<"Waste"> | string
+    wasteType?: EnumWasteTypeFilter<"Waste"> | $Enums.WasteType
+    weight?: FloatFilter<"Waste"> | number
+    quantity?: IntFilter<"Waste"> | number
+    unit?: EnumWasteUnitFilter<"Waste"> | $Enums.WasteUnit
+    condition?: EnumWasteConditionFilter<"Waste"> | $Enums.WasteCondition
+    hasPackaging?: BoolFilter<"Waste"> | boolean
+    discardDate?: DateTimeFilter<"Waste"> | Date | string
+    discardTime?: StringFilter<"Waste"> | string
+    additionalDescription?: StringNullableFilter<"Waste"> | string | null
+    images?: StringNullableListFilter<"Waste">
+    createdAt?: DateTimeFilter<"Waste"> | Date | string
+    updatedAt?: DateTimeFilter<"Waste"> | Date | string
   }
 
   export type UserCreateWithoutAddressInput = {
@@ -3969,6 +6344,7 @@ export namespace Prisma {
     password: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    Waste?: WasteCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAddressInput = {
@@ -3978,11 +6354,55 @@ export namespace Prisma {
     password: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    Waste?: WasteUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAddressInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutAddressInput, UserUncheckedCreateWithoutAddressInput>
+  }
+
+  export type WasteCreateWithoutAddressInput = {
+    id?: string
+    wasteType: $Enums.WasteType
+    weight: number
+    quantity: number
+    unit: $Enums.WasteUnit
+    condition: $Enums.WasteCondition
+    hasPackaging: boolean
+    discardDate: Date | string
+    discardTime: string
+    additionalDescription?: string | null
+    images?: WasteCreateimagesInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutWasteInput
+  }
+
+  export type WasteUncheckedCreateWithoutAddressInput = {
+    id?: string
+    userId: string
+    wasteType: $Enums.WasteType
+    weight: number
+    quantity: number
+    unit: $Enums.WasteUnit
+    condition: $Enums.WasteCondition
+    hasPackaging: boolean
+    discardDate: Date | string
+    discardTime: string
+    additionalDescription?: string | null
+    images?: WasteCreateimagesInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type WasteCreateOrConnectWithoutAddressInput = {
+    where: WasteWhereUniqueInput
+    create: XOR<WasteCreateWithoutAddressInput, WasteUncheckedCreateWithoutAddressInput>
+  }
+
+  export type WasteCreateManyAddressInputEnvelope = {
+    data: WasteCreateManyAddressInput | WasteCreateManyAddressInput[]
   }
 
   export type UserUpsertWithoutAddressInput = {
@@ -4002,6 +6422,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Waste?: WasteUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAddressInput = {
@@ -4010,6 +6431,167 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Waste?: WasteUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type WasteUpsertWithWhereUniqueWithoutAddressInput = {
+    where: WasteWhereUniqueInput
+    update: XOR<WasteUpdateWithoutAddressInput, WasteUncheckedUpdateWithoutAddressInput>
+    create: XOR<WasteCreateWithoutAddressInput, WasteUncheckedCreateWithoutAddressInput>
+  }
+
+  export type WasteUpdateWithWhereUniqueWithoutAddressInput = {
+    where: WasteWhereUniqueInput
+    data: XOR<WasteUpdateWithoutAddressInput, WasteUncheckedUpdateWithoutAddressInput>
+  }
+
+  export type WasteUpdateManyWithWhereWithoutAddressInput = {
+    where: WasteScalarWhereInput
+    data: XOR<WasteUpdateManyMutationInput, WasteUncheckedUpdateManyWithoutAddressInput>
+  }
+
+  export type UserCreateWithoutWasteInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Address?: AddressCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutWasteInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Address?: AddressUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutWasteInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutWasteInput, UserUncheckedCreateWithoutWasteInput>
+  }
+
+  export type AddressCreateWithoutWasteInput = {
+    id?: string
+    street: string
+    city: string
+    state: string
+    zipCode: string
+    country?: string | null
+    longitude?: number | null
+    latitude?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    number?: string | null
+    complement?: string | null
+    neighborhood?: string | null
+    reference?: string | null
+    isMain?: boolean
+    user: UserCreateNestedOneWithoutAddressInput
+  }
+
+  export type AddressUncheckedCreateWithoutWasteInput = {
+    id?: string
+    userId: string
+    street: string
+    city: string
+    state: string
+    zipCode: string
+    country?: string | null
+    longitude?: number | null
+    latitude?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    number?: string | null
+    complement?: string | null
+    neighborhood?: string | null
+    reference?: string | null
+    isMain?: boolean
+  }
+
+  export type AddressCreateOrConnectWithoutWasteInput = {
+    where: AddressWhereUniqueInput
+    create: XOR<AddressCreateWithoutWasteInput, AddressUncheckedCreateWithoutWasteInput>
+  }
+
+  export type UserUpsertWithoutWasteInput = {
+    update: XOR<UserUpdateWithoutWasteInput, UserUncheckedUpdateWithoutWasteInput>
+    create: XOR<UserCreateWithoutWasteInput, UserUncheckedCreateWithoutWasteInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutWasteInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutWasteInput, UserUncheckedUpdateWithoutWasteInput>
+  }
+
+  export type UserUpdateWithoutWasteInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Address?: AddressUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutWasteInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Address?: AddressUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type AddressUpsertWithoutWasteInput = {
+    update: XOR<AddressUpdateWithoutWasteInput, AddressUncheckedUpdateWithoutWasteInput>
+    create: XOR<AddressCreateWithoutWasteInput, AddressUncheckedCreateWithoutWasteInput>
+    where?: AddressWhereInput
+  }
+
+  export type AddressUpdateToOneWithWhereWithoutWasteInput = {
+    where?: AddressWhereInput
+    data: XOR<AddressUpdateWithoutWasteInput, AddressUncheckedUpdateWithoutWasteInput>
+  }
+
+  export type AddressUpdateWithoutWasteInput = {
+    street?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    state?: StringFieldUpdateOperationsInput | string
+    zipCode?: StringFieldUpdateOperationsInput | string
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    number?: NullableStringFieldUpdateOperationsInput | string | null
+    complement?: NullableStringFieldUpdateOperationsInput | string | null
+    neighborhood?: NullableStringFieldUpdateOperationsInput | string | null
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    isMain?: BoolFieldUpdateOperationsInput | boolean
+    user?: UserUpdateOneRequiredWithoutAddressNestedInput
+  }
+
+  export type AddressUncheckedUpdateWithoutWasteInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    street?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    state?: StringFieldUpdateOperationsInput | string
+    zipCode?: StringFieldUpdateOperationsInput | string
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    number?: NullableStringFieldUpdateOperationsInput | string | null
+    complement?: NullableStringFieldUpdateOperationsInput | string | null
+    neighborhood?: NullableStringFieldUpdateOperationsInput | string | null
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    isMain?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AddressCreateManyUserInput = {
@@ -4021,6 +6603,28 @@ export namespace Prisma {
     country?: string | null
     longitude?: number | null
     latitude?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    number?: string | null
+    complement?: string | null
+    neighborhood?: string | null
+    reference?: string | null
+    isMain?: boolean
+  }
+
+  export type WasteCreateManyUserInput = {
+    id?: string
+    addressId: string
+    wasteType: $Enums.WasteType
+    weight: number
+    quantity: number
+    unit: $Enums.WasteUnit
+    condition: $Enums.WasteCondition
+    hasPackaging: boolean
+    discardDate: Date | string
+    discardTime: string
+    additionalDescription?: string | null
+    images?: WasteCreateimagesInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -4035,6 +6639,12 @@ export namespace Prisma {
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    number?: NullableStringFieldUpdateOperationsInput | string | null
+    complement?: NullableStringFieldUpdateOperationsInput | string | null
+    neighborhood?: NullableStringFieldUpdateOperationsInput | string | null
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    isMain?: BoolFieldUpdateOperationsInput | boolean
+    Waste?: WasteUpdateManyWithoutAddressNestedInput
   }
 
   export type AddressUncheckedUpdateWithoutUserInput = {
@@ -4047,6 +6657,12 @@ export namespace Prisma {
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    number?: NullableStringFieldUpdateOperationsInput | string | null
+    complement?: NullableStringFieldUpdateOperationsInput | string | null
+    neighborhood?: NullableStringFieldUpdateOperationsInput | string | null
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    isMain?: BoolFieldUpdateOperationsInput | boolean
+    Waste?: WasteUncheckedUpdateManyWithoutAddressNestedInput
   }
 
   export type AddressUncheckedUpdateManyWithoutUserInput = {
@@ -4057,6 +6673,124 @@ export namespace Prisma {
     country?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    number?: NullableStringFieldUpdateOperationsInput | string | null
+    complement?: NullableStringFieldUpdateOperationsInput | string | null
+    neighborhood?: NullableStringFieldUpdateOperationsInput | string | null
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    isMain?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type WasteUpdateWithoutUserInput = {
+    wasteType?: EnumWasteTypeFieldUpdateOperationsInput | $Enums.WasteType
+    weight?: FloatFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+    unit?: EnumWasteUnitFieldUpdateOperationsInput | $Enums.WasteUnit
+    condition?: EnumWasteConditionFieldUpdateOperationsInput | $Enums.WasteCondition
+    hasPackaging?: BoolFieldUpdateOperationsInput | boolean
+    discardDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    discardTime?: StringFieldUpdateOperationsInput | string
+    additionalDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    images?: WasteUpdateimagesInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    address?: AddressUpdateOneRequiredWithoutWasteNestedInput
+  }
+
+  export type WasteUncheckedUpdateWithoutUserInput = {
+    addressId?: StringFieldUpdateOperationsInput | string
+    wasteType?: EnumWasteTypeFieldUpdateOperationsInput | $Enums.WasteType
+    weight?: FloatFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+    unit?: EnumWasteUnitFieldUpdateOperationsInput | $Enums.WasteUnit
+    condition?: EnumWasteConditionFieldUpdateOperationsInput | $Enums.WasteCondition
+    hasPackaging?: BoolFieldUpdateOperationsInput | boolean
+    discardDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    discardTime?: StringFieldUpdateOperationsInput | string
+    additionalDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    images?: WasteUpdateimagesInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WasteUncheckedUpdateManyWithoutUserInput = {
+    addressId?: StringFieldUpdateOperationsInput | string
+    wasteType?: EnumWasteTypeFieldUpdateOperationsInput | $Enums.WasteType
+    weight?: FloatFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+    unit?: EnumWasteUnitFieldUpdateOperationsInput | $Enums.WasteUnit
+    condition?: EnumWasteConditionFieldUpdateOperationsInput | $Enums.WasteCondition
+    hasPackaging?: BoolFieldUpdateOperationsInput | boolean
+    discardDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    discardTime?: StringFieldUpdateOperationsInput | string
+    additionalDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    images?: WasteUpdateimagesInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WasteCreateManyAddressInput = {
+    id?: string
+    userId: string
+    wasteType: $Enums.WasteType
+    weight: number
+    quantity: number
+    unit: $Enums.WasteUnit
+    condition: $Enums.WasteCondition
+    hasPackaging: boolean
+    discardDate: Date | string
+    discardTime: string
+    additionalDescription?: string | null
+    images?: WasteCreateimagesInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type WasteUpdateWithoutAddressInput = {
+    wasteType?: EnumWasteTypeFieldUpdateOperationsInput | $Enums.WasteType
+    weight?: FloatFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+    unit?: EnumWasteUnitFieldUpdateOperationsInput | $Enums.WasteUnit
+    condition?: EnumWasteConditionFieldUpdateOperationsInput | $Enums.WasteCondition
+    hasPackaging?: BoolFieldUpdateOperationsInput | boolean
+    discardDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    discardTime?: StringFieldUpdateOperationsInput | string
+    additionalDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    images?: WasteUpdateimagesInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutWasteNestedInput
+  }
+
+  export type WasteUncheckedUpdateWithoutAddressInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    wasteType?: EnumWasteTypeFieldUpdateOperationsInput | $Enums.WasteType
+    weight?: FloatFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+    unit?: EnumWasteUnitFieldUpdateOperationsInput | $Enums.WasteUnit
+    condition?: EnumWasteConditionFieldUpdateOperationsInput | $Enums.WasteCondition
+    hasPackaging?: BoolFieldUpdateOperationsInput | boolean
+    discardDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    discardTime?: StringFieldUpdateOperationsInput | string
+    additionalDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    images?: WasteUpdateimagesInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WasteUncheckedUpdateManyWithoutAddressInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    wasteType?: EnumWasteTypeFieldUpdateOperationsInput | $Enums.WasteType
+    weight?: FloatFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+    unit?: EnumWasteUnitFieldUpdateOperationsInput | $Enums.WasteUnit
+    condition?: EnumWasteConditionFieldUpdateOperationsInput | $Enums.WasteCondition
+    hasPackaging?: BoolFieldUpdateOperationsInput | boolean
+    discardDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    discardTime?: StringFieldUpdateOperationsInput | string
+    additionalDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    images?: WasteUpdateimagesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
