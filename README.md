@@ -22,11 +22,6 @@ Acesse a documentação interativa em: **http://localhost:3005/api**
 - Schemas e exemplos automáticos
 - Try it out para executar requisições
 
-### Documentação Manual
-
-- [**WASTE_API.md**](./WASTE_API.md) - Documentação completa das rotas
-- [**SWAGGER.md**](./SWAGGER.md) - Guia de uso do Swagger
-
 ## ⚡ Quick Start
 
 ```bash
